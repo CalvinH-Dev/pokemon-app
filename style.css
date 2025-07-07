@@ -22,7 +22,7 @@ section {
 }
 
 .grid > div {
-	height: 50px;
+	min-height: 50px;
 	background-color: blue;
 
 	align-content: center;

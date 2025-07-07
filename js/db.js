@@ -13,10 +13,8 @@ const pokeGens = {
 	},
 };
 
-let fetchedPokemon = {};
-let currentPage = 1;
-let currentGen = 1;
+let fetchedPokemon = { 1: {}, 2: {}, 3: {} };
 
 const BASE_URL_SPECIES = "https://pokeapi.co/api/v2/pokemon-species/";
-const BASE_URL_GEN = "https://pokeapi.co/api/v2/pokemon";
+const BASE_URL_GENERAL = "https://pokeapi.co/api/v2/pokemon/";
 const PAGE_SIZE = 20;
