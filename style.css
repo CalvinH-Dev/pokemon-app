@@ -1,0 +1,36 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body {
+	min-height: 100vh;
+}
+
+header,
+footer,
+section {
+	padding-inline: max(24px, calc(50% - 1600px / 2));
+}
+
+.grid {
+	width: 100%;
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	column-gap: 10px;
+}
+
+.grid > div {
+	height: 50px;
+	background-color: blue;
+
+	align-content: center;
+	text-align: center;
+	color: white;
+}
+
+button {
+	width: 100px;
+	height: 50px;
+}
