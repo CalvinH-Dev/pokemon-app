@@ -10,15 +10,27 @@
 		<title>Pokedex API</title>
 	</head>
 	<body>
-		<label for="pet-select">Wähle eine Generation:</label>
+		<header>
+			<div>
+				<label for="genSelect">Wähle eine Generation:</label>
 
-		<select name="gens" id="genSelect" onchange="changeGen()">
-			<option value="1">Generation 1</option>
-			<option value="2">Generation 2</option>
-			<option value="3">Generation 3</option>
-		</select>
-		<input id="filterInput" type="text" minlength="3" oninput="filterPokemon()" />
-		<div class="grid"></div>
-		<button onclick="nextPage()"></button>
+				<select name="gens" id="genSelect" onchange="changeGen()">
+					<option value="1">Generation 1</option>
+					<option value="2">Generation 2</option>
+					<option value="3">Generation 3</option>
+				</select>
+			</div>
+			<input id="filterInput" type="text" minlength="3" oninput="filterPokemon()" />
+		</header>
+		<main>
+			<section>
+				<div class="grid"></div>
+				<div class="buttons">
+					<button id="prevBtn" class="hidden" onclick="prevPage()">Vorherige Seite</button>
+					<button id="nextBtn" onclick="nextPage()">Nächste Seite</button>
+				</div>
+			</section>
+		</main>
+		<footer></footer>
 	</body>
 </html>

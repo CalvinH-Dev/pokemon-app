@@ -68,13 +68,22 @@ async function fetchPokemon(id) {
 }
 
 async function renderPokemonCard(json) {
+	let typesHTML = "";
+	for (let index = 0; index < json.types.length; index++) {
+		typesHTML += /*html*/ `
+				<img src="${types[json.types[index].type.name]}"/>
+			`;
+	}
+
 	const grid = document.querySelector(".grid");
 	grid.innerHTML += /*html*/ `
-		<div style="order: ${
-			json.id
-		}"><img style="width: 50px; height: 50px;" src="${getFrontalImageUrlById(json.id)}"/><p>${
-		json.german_name
-	}</p></div>
+		<div class="pokemon-container" style="order: ${json.id}">
+			<div>
+				<img style="width: 50px; height: 50px;" src="${getFrontalImageUrlById(json.id)}"/>
+				<p>${json.german_name}</p>
+			</div>
+			<div>${typesHTML}</div>
+		</div>
 	`;
 }
 

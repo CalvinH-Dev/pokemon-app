@@ -4,12 +4,27 @@ let currentGen = 1;
 async function init() {
 	await renderAllPokemonForPage(1, 1);
 	await fetchRest();
+	renderTypes();
 }
 
 init();
 
+function updateButtons() {
+	const prevBtn = document.getElementById("prevBtn");
+	const nextBtn = document.getElementById("nextBtn");
+	prevBtn.classList.toggle("hidden", !(currentPage > 1));
+	nextBtn.classList.toggle(
+		"hidden",
+		currentPage == Math.ceil(pokeGens[currentGen].count / PAGE_SIZE),
+	);
+}
+
 async function nextPage() {
-	await renderAllPokemonForPage(currentPage + 1, currentGen);
+	await renderAllPokemonForPage(++currentPage, currentGen);
+}
+
+async function prevPage() {
+	await renderAllPokemonForPage(--currentPage, currentGen);
 }
 
 async function renderAllPokemonForPage(page, gen) {
@@ -20,6 +35,7 @@ async function renderAllPokemonForPage(page, gen) {
 	grid.innerHTML = "";
 
 	await getAllPokemonByPage(page, gen);
+	updateButtons();
 }
 
 async function fetchRest() {
@@ -71,4 +87,22 @@ function renderManyPokemon(pokemon) {
 
 		fetchAndRender(id);
 	}
+}
+
+function renderTypes() {
+	const footer = document.querySelector("footer");
+	footer.innerHTML = "";
+	const keys = Object.keys(types);
+	keys.forEach((key) => {
+		footer.innerHTML += renderType(key, types[key]);
+	});
+}
+
+function renderType(type, typeSrc) {
+	return /*html*/ `
+		<div class="type-container">
+			<img src="${typeSrc}" alt="">
+			<p>${type}</p>
+		</div>
+	`;
 }
