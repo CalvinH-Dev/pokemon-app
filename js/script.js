@@ -3,6 +3,8 @@ let currentGen = 1;
 
 async function init() {
 	await renderAllPokemonForPage(1, 1);
+	console.log("hier");
+	console.log(JSON.stringify(fetchedPokemon));
 	await fetchRest();
 	renderTypes();
 }
@@ -15,7 +17,7 @@ function updateButtons() {
 	prevBtn.classList.toggle("hidden", !(currentPage > 1));
 	nextBtn.classList.toggle(
 		"hidden",
-		currentPage == Math.ceil(pokeGens[currentGen].count / PAGE_SIZE),
+		currentPage == Math.ceil(POKE_GENS[currentGen].count / PAGE_SIZE),
 	);
 }
 
@@ -40,8 +42,8 @@ async function renderAllPokemonForPage(page, gen) {
 
 async function fetchRest() {
 	const promises = [];
-	const start = pokeGens[currentGen].lastId - pokeGens[currentGen].count + 1;
-	for (let id = start; id <= pokeGens[currentGen].lastId; id++) {
+	const start = POKE_GENS[currentGen].lastId - POKE_GENS[currentGen].count + 1;
+	for (let id = start; id <= POKE_GENS[currentGen].lastId; id++) {
 		promises.push(fetchPokemon(id));
 	}
 	await Promise.all(promises);
@@ -92,17 +94,27 @@ function renderManyPokemon(pokemon) {
 function renderTypes() {
 	const footer = document.querySelector("footer");
 	footer.innerHTML = "";
-	const keys = Object.keys(types);
-	keys.forEach((key) => {
-		footer.innerHTML += renderType(key, types[key]);
+	const types = Object.keys(POKE_TYPES);
+	types.forEach((type) => {
+		footer.innerHTML += renderType(type);
 	});
 }
 
-function renderType(type, typeSrc) {
-	return /*html*/ `
-		<div class="type-container">
-			<img src="${typeSrc}" alt="">
-			<p>${type}</p>
+async function renderPokemonCard(json) {
+	console.log(json);
+	let typesHTML = "";
+	for (let index = 0; index < json.types.length; index++) {
+		typesHTML += renderType(json.types[index].type.name);
+	}
+
+	const grid = document.querySelector(".grid");
+	grid.innerHTML += /*html*/ `
+		<div class="pokemon-container" style="order: ${json.id}">
+			<div>
+				<img style="width: 50px; height: 50px;" src="${getFrontalImageUrlById(json.id)}"/>
+				<p>${json.german_name}</p>
+			</div>
+			<div>${typesHTML}</div>
 		</div>
 	`;
 }

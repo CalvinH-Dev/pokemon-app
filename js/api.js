@@ -10,8 +10,8 @@ async function fetchJSONFromUrl(url) {
 }
 
 function getLimitForGeneration(gen) {
-	const lastIdGenBefore = pokeGens[gen - 1] ? pokeGens[gen - 1].lastId : 0;
-	return `?limit=${pokeGens[gen].lastId}&offset=${lastIdGenBefore}`;
+	const lastIdGenBefore = POKE_GENS[gen - 1] ? POKE_GENS[gen - 1].lastId : 0;
+	return `?limit=${POKE_GENS[gen].lastId}&offset=${lastIdGenBefore}`;
 }
 
 function getGenerationURL(gen) {
@@ -28,15 +28,18 @@ async function getGermanNameById(id) {
 }
 
 async function fetchAndRender(id) {
+	console.log(fetchedPokemon);
 	const fetchedJSON = fetchedPokemon[currentGen][id];
 	if (fetchedJSON) {
-		renderPokemonCard(fetchedJSON);
+		createPokemonCard(fetchedJSON);
+		// renderPokemonCard(fetchedJSON);
 		return;
 	}
 	try {
 		const json = await fetchPokemon(id);
 
-		await renderPokemonCard(json);
+		createPokemonCard(json);
+		// renderPokemonCard(json);
 	} catch (e) {
 		console.error(e);
 	}
@@ -44,16 +47,16 @@ async function fetchAndRender(id) {
 
 async function getAllPokemonByPage(page, gen = 1) {
 	const promises = [];
-	const offset = pokeGens[gen].lastId - pokeGens[gen].count;
+	const offset = POKE_GENS[gen].lastId - POKE_GENS[gen].count;
 	const start = (page - 1) * PAGE_SIZE + offset + 1;
 	const end = page * PAGE_SIZE + offset;
 
-	if (start > pokeGens[gen].lastId) return;
-
-	for (let id = start; id <= Math.min(end, pokeGens[gen].lastId); id++) {
+	if (start > POKE_GENS[gen].lastId) return;
+	for (let id = start; id <= Math.min(end, POKE_GENS[gen].lastId); id++) {
 		promises.push(fetchAndRender(id));
 	}
 	await Promise.all(promises);
+	console.log(end);
 }
 
 async function fetchPokemon(id) {
@@ -65,26 +68,6 @@ async function fetchPokemon(id) {
 	fetchedPokemon[currentGen][json.id] = json;
 	fetchedPokemon[currentGen][json.id].german_name = await getGermanNameById(json.id);
 	return fetchedPokemon[currentGen][json.id];
-}
-
-async function renderPokemonCard(json) {
-	let typesHTML = "";
-	for (let index = 0; index < json.types.length; index++) {
-		typesHTML += /*html*/ `
-				<img src="${types[json.types[index].type.name]}"/>
-			`;
-	}
-
-	const grid = document.querySelector(".grid");
-	grid.innerHTML += /*html*/ `
-		<div class="pokemon-container" style="order: ${json.id}">
-			<div>
-				<img style="width: 50px; height: 50px;" src="${getFrontalImageUrlById(json.id)}"/>
-				<p>${json.german_name}</p>
-			</div>
-			<div>${typesHTML}</div>
-		</div>
-	`;
 }
 
 function getFrontalImageUrlById(id) {
