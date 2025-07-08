@@ -5,6 +5,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<link rel="stylesheet" href="style.css" />
 		<script src="js/db.js" defer></script>
+		<script src="js/helper.js" defer></script>
 		<script src="js/api.js" defer></script>
 		<script src="js/template.js" defer></script>
 		<script src="js/script.js" defer></script>
@@ -21,7 +22,13 @@
 					<option value="3">Generation 3</option>
 				</select>
 			</div>
-			<input id="filterInput" type="text" minlength="3" oninput="filterPokemon()" />
+			<input
+				id="filterInput"
+				type="text"
+				minlength="3"
+				onfocus="saveOldInputValue()"
+				oninput="filterPokemon(event)"
+			/>
 		</header>
 		<main>
 			<section>
