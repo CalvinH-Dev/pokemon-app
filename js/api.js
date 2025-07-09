@@ -36,7 +36,7 @@ async function fetchAndRender(id) {
 	}
 }
 
-async function getAllPokemonByPage(page, gen = 1) {
+async function renderAllPokemonForPage(page, gen = 1) {
 	const promises = [];
 	const offset = POKE_GENS[gen].lastId - POKE_GENS[gen].count;
 	const start = (page - 1) * PAGE_SIZE + offset + 1;

@@ -25,6 +25,13 @@ function renderPokemonContainer(json) {
   `;
 }
 
+function renderEmptyList() {
+	return /*html*/ `
+		<h3 id="emptyListText">Es wurden keine Pokemon gefunden</h3>
+		<button onclick="clearFilter()" id="clearFilterBtn">Filter aufheben</button>
+	`;
+}
+
 function testClick(id) {
 	console.log(id);
 }

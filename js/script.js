@@ -5,41 +5,52 @@ let oldFilterValue = "";
 const filterInput = document.getElementById("filterInput");
 
 async function init() {
-	await renderAllPokemonForPage(1, 1);
+	currentPage = 1;
+	currentGen = 1;
+	updatePaginationButtons();
+	await createPage();
 	fetchGen();
-	// createTypes();
 }
 
 init();
 
 async function nextPage() {
-	await renderAllPokemonForPage(++currentPage, currentGen);
+	currentPage++;
+	updatePaginationButtons();
+	await createPage();
 }
 
 async function prevPage() {
-	await renderAllPokemonForPage(--currentPage, currentGen);
+	currentPage--;
+	updatePaginationButtons();
+	await createPage();
 }
 
-async function renderAllPokemonForPage(page, gen) {
-	currentPage = page;
-	currentGen = gen;
+async function clearFilter() {
+	const input = document.getElementById("filterInput");
+	input.value = "";
+	await showNormalView();
+	saveOldInputValue();
+}
 
+async function createPage() {
+	showLoadingSpinner();
 	const grid = document.querySelector(".grid");
 	grid.innerHTML = "";
 
-	await getAllPokemonByPage(page, gen);
-	updateButtons();
+	await renderAllPokemonForPage(currentPage, currentGen);
+	setTimeout(() => {
+		hideLoadingSpinner();
+	}, 250);
 }
 
 async function changeGen() {
 	const select = document.getElementById("genSelect");
 	const gen = select.value;
-	await renderAllPokemonForPage(1, gen);
+	currentPage = 1;
+	currentGen = gen;
+	await createPage();
 	await fetchGen();
-}
-
-function saveOldInputValue() {
-	oldFilterValue = filterInput.value;
 }
 
 async function filterPokemon(event) {
@@ -49,19 +60,9 @@ async function filterPokemon(event) {
 		oldFilterValue.length > 2;
 
 	if (filterInput.value.length > 2) {
-		const filterValue = filterInput.value.toLowerCase();
-		const filteredPokemon = getFilteredPokemon(filterValue);
-		renderListOfPokemon(filteredPokemon);
+		showFilteredView();
 	} else if (needsRerender) {
-		renderAllPokemonForPage(currentPage, currentGen);
+		await showNormalView();
 	}
-	oldFilterValue = filterInput.value;
-}
-
-function renderListOfPokemon(pokemon) {
-	const grid = document.querySelector(".grid");
-	grid.innerHTML = "";
-	for (let i = 0; i < pokemon.length; i++) {
-		createPokemonCard(pokemon[i]);
-	}
+	saveOldInputValue();
 }

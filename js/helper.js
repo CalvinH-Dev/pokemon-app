@@ -13,15 +13,20 @@ function getGenerationURL(gen) {
 	return url;
 }
 
-function updateButtons() {
+function updatePaginationButtons() {
 	const nextBtn = document.getElementById("nextBtn");
 	const prevBtn = document.getElementById("prevBtn");
+	const maxPage = currentPage == Math.ceil(POKE_GENS[currentGen].count / PAGE_SIZE);
 
-	prevBtn.classList.toggle("hidden", !(currentPage > 1));
-	nextBtn.classList.toggle(
-		"hidden",
-		currentPage == Math.ceil(POKE_GENS[currentGen].count / PAGE_SIZE),
-	);
+	const prevShouldBeHidden = !(currentPage > 1) || getCurrentView() !== "grid";
+	const nextShouldBeHidden = maxPage || getCurrentView() !== "grid";
+
+	prevBtn.classList.toggle("hidden", prevShouldBeHidden);
+	nextBtn.classList.toggle("hidden", nextShouldBeHidden);
+}
+
+function updatePagination() {
+	updatePaginationButtons();
 }
 
 function createPokemonCard(pokemonJSON) {
@@ -56,4 +61,68 @@ function getFilteredPokemon(value) {
 	}
 
 	return filteredPokemon;
+}
+
+function saveOldInputValue() {
+	oldFilterValue = filterInput.value;
+}
+
+function getCurrentView() {
+	const section = document.getElementById("mainSection");
+	return section.dataset.view;
+}
+
+function setView(view) {
+	const sectionRef = document.getElementById("mainSection");
+	const viewRef = document.querySelector(".view");
+	sectionRef.dataset.view = view;
+
+	viewRef.classList.toggle("grid", view === "grid" || view === "filtered");
+	viewRef.classList.toggle("empty", view === "empty");
+
+	return sectionRef;
+}
+
+async function showNormalView() {
+	setView("grid");
+	await createPage();
+	updatePagination();
+}
+
+function showFilteredView() {
+	const filterValue = filterInput.value.toLowerCase();
+	const filteredPokemon = getFilteredPokemon(filterValue);
+
+	if (filteredPokemon.length) {
+		setView("filtered");
+		showListOfPokemon(filteredPokemon);
+	} else {
+		setView("empty");
+		showEmptyList();
+	}
+	updatePagination();
+}
+
+function showListOfPokemon(pokemon) {
+	const grid = document.querySelector(".grid");
+	grid.innerHTML = "";
+	for (let i = 0; i < pokemon.length; i++) {
+		createPokemonCard(pokemon[i]);
+	}
+}
+
+function showEmptyList() {
+	const view = document.querySelector(".view");
+	view.classList.remove("grid");
+	view.innerHTML = renderEmptyList();
+}
+
+function showLoadingSpinner() {
+	const spinner = document.getElementById("loadingSpinner");
+	spinner.classList.remove("d-none");
+}
+
+function hideLoadingSpinner() {
+	const spinner = document.getElementById("loadingSpinner");
+	spinner.classList.add("d-none");
 }

@@ -1,0 +1,71 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+html {
+	--color-poison: hsl(273, 60%, 53%);
+	--color-grass: hsl(96, 78%, 36%);
+	--color-fire: hsl(1, 78%, 49%);
+	--color-water: hsl(217, 88%, 59%);
+	--color-flying: hsl(212, 80%, 75%);
+	--color-bug: hsl(66, 100%, 32%);
+	--color-normal: hsl(90, 1%, 63%);
+	--color-electric: hsl(47, 100%, 48%);
+	--color-ice: hsl(194, 100%, 68%);
+	--color-fighting: hsl(31, 100%, 48%);
+	--color-ground: hsl(30, 76%, 31%);
+	--color-psychic: hsl(339, 77%, 57%);
+	--color-rock: hsl(54, 23%, 59%);
+	--color-ghost: hsl(294, 29%, 35%);
+	--color-dragon: hsl(235, 74%, 61%);
+	--color-dark: hsl(10, 13%, 27%);
+	--color-steel: hsl(198, 38%, 57%);
+	--color-fairy: hsl(295, 83%, 69%);
+
+	--border-radius: 15px;
+}
+
+body {
+	font-family: "Bitter";
+	min-height: 100vh;
+}
+
+header,
+footer,
+section {
+	padding-inline: max(24px, calc(50% - 1600px / 2));
+	width: 100%;
+}
+
+header,
+footer {
+	height: 10vh;
+}
+
+select,
+input,
+button {
+	border: none;
+	background: none;
+	font-family: inherit;
+	font-size: inherit;
+	cursor: pointer;
+}
+
+button {
+	transition: scale 225ms;
+}
+
+button:active {
+	scale: 0.9;
+}
+
+.hidden {
+	visibility: hidden;
+}
+
+.d-none {
+	display: none;
+}
