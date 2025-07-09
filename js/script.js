@@ -7,7 +7,7 @@ const filterInput = document.getElementById("filterInput");
 async function init() {
 	currentPage = 1;
 	currentGen = 1;
-	updatePaginationButtons();
+	updatePagination();
 	await createPage();
 	fetchGen();
 }
@@ -16,13 +16,13 @@ init();
 
 async function nextPage() {
 	currentPage++;
-	updatePaginationButtons();
+	updatePagination();
 	await createPage();
 }
 
 async function prevPage() {
 	currentPage--;
-	updatePaginationButtons();
+	updatePagination();
 	await createPage();
 }
 

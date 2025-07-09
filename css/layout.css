@@ -21,5 +21,4 @@ section {
 	flex-direction: column;
 	justify-content: space-between;
 	align-items: start;
-	row-gap: 5em;
 }

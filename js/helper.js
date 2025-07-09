@@ -25,7 +25,18 @@ function updatePaginationButtons() {
 	nextBtn.classList.toggle("hidden", nextShouldBeHidden);
 }
 
+function getPageText(page) {
+	return `Seite ${page}`;
+}
+
 function updatePagination() {
+	const shouldBeHidden = getCurrentView() !== "grid";
+	const pagination = document.querySelector(".pagination");
+	const pageText = document.getElementById("pageCount");
+	pageText.innerHTML = getPageText(currentPage);
+	pageText;
+	pagination.classList.toggle("d-none", shouldBeHidden);
+
 	updatePaginationButtons();
 }
 
