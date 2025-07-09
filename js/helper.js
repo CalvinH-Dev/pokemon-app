@@ -29,12 +29,13 @@ function createPokemonCard(pokemonJSON) {
 	grid.innerHTML += renderPokemonContainer(pokemonJSON);
 	const container = document.getElementById(`pokemon-${pokemonJSON.id}`);
 	container.innerHTML = renderPokemonInfo(pokemonJSON);
+	const types = container.querySelector(".types-container");
 	for (const typeObj of pokemonJSON.types) {
-		container.innerHTML += renderType(typeObj.type.name);
+		types.innerHTML += renderType(typeObj.type.name);
 	}
 }
 
-function createTypes() {
+async function createTypes() {
 	const footer = document.querySelector("footer");
 	footer.innerHTML = "";
 	const types = Object.keys(POKE_TYPES);

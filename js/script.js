@@ -6,8 +6,8 @@ const filterInput = document.getElementById("filterInput");
 
 async function init() {
 	await renderAllPokemonForPage(1, 1);
-	await fetchGen();
-	createTypes();
+	fetchGen();
+	// createTypes();
 }
 
 init();

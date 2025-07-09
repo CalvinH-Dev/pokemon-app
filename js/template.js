@@ -6,16 +6,25 @@ function renderType(type) {
 
 function renderPokemonInfo(json) {
 	return /*html*/ `
-    <div>
-      <img style="width: 50px; height: 50px;" src="${getFrontalImageUrlById(json.id)}"/>
-      <p>${json.german_name}</p>
-    </div>
-    <div class="types"></div>
+	<div class="name-id-container">
+    <p>${json.german_name}</p>
+		<span class="pokemon-id">#${json.id}</span>
+		</div>
+    <img class="pokemon-img" style="width: 50px; height: 50px;" src="${getFrontalImageUrlById(
+			json.id,
+		)}"/>      
+    <div class="types-container"></div>
 	`;
 }
 
 function renderPokemonContainer(json) {
 	return /*html*/ `
-    <div class="pokemon-container" style="order: ${json.id}" id="pokemon-${json.id}"></div>
+    <div onclick="testClick(${json.id})" class="pokemon-container ${json.types[0].type.name}${
+		json.types[1] ? " " + json.types[1].type.name : ""
+	}" style="order: ${json.id};" id="pokemon-${json.id}"></div>
   `;
+}
+
+function testClick(id) {
+	console.log(id);
 }
