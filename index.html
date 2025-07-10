@@ -7,7 +7,7 @@
 		<link rel="stylesheet" href="css/base.css" />
 		<link rel="stylesheet" href="css/layout.css" />
 		<link rel="stylesheet" href="css/style.css" />
-		<link rel="stylesheet" href="css/type-combos.css" />
+		<!-- <link rel="stylesheet" href="css/type-combos.css" /> -->
 		<script src="js/db.js" defer></script>
 		<script src="js/helper.js" defer></script>
 		<script src="js/api.js" defer></script>
@@ -36,7 +36,8 @@
 			</svg>
 		</div>
 		<header>
-			<div>
+			<h1>Pokedex API</h1>
+			<div class="selectors">
 				<!-- <label for="genSelect">Wähle eine Generation:</label> -->
 
 				<select name="gens" id="genSelect" onchange="changeGen()">
@@ -44,28 +45,29 @@
 					<option value="2">Generation 2</option>
 					<option value="3">Generation 3</option>
 				</select>
+
+				<input
+					id="filterInput"
+					type="text"
+					minlength="3"
+					onfocus="saveOldInputValue()"
+					oninput="filterPokemon(event)"
+					disabled
+					autocomplete="off"
+				/>
 			</div>
-			<input
-				id="filterInput"
-				type="text"
-				minlength="3"
-				onfocus="saveOldInputValue()"
-				oninput="filterPokemon(event)"
-				disabled
-				autocomplete="off"
-			/>
 		</header>
 		<main>
 			<section id="mainSection" data-view="grid">
 				<div class="view grid"></div>
 
 				<div class="pagination">
-					<button id="prevBtn" onclick="prevPage()">Vorherige Seite</button>
+					<button id="prevBtn" onclick="prevPage()">Vorherige</button>
 					<h4 id="pageCount">Seite 1</h4>
-					<button id="nextBtn" onclick="nextPage()">Nächste Seite</button>
+					<button id="nextBtn" onclick="nextPage()">Nächste</button>
 				</div>
 			</section>
 		</main>
-		<footer></footer>
+		<footer>Das ist ein Footer</footer>
 	</body>
 </html>

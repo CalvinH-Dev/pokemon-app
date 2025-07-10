@@ -36,6 +36,6 @@ const POKE_TYPES = {
 
 const BASE_URL_SPECIES = "https://pokeapi.co/api/v2/pokemon-species/";
 const BASE_URL_GENERAL = "https://pokeapi.co/api/v2/pokemon/";
-const PAGE_SIZE = 20;
+const PAGE_SIZE = 36;
 
 let fetchedPokemon = { 1: {}, 2: {}, 3: {} };

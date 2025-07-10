@@ -31,6 +31,7 @@ async function fetchAndRender(id) {
 	try {
 		const json = await fetchPokemon(id);
 		createPokemonCard(json);
+		console.log(json);
 	} catch (e) {
 		console.error(e);
 	}
@@ -59,4 +60,13 @@ async function fetchGen() {
 	}
 	await Promise.all(promises);
 	activateFilterInput();
+}
+
+async function getPokemonAudio(id) {
+	const url = fetchedPokemon[currentGen][id].cries.legacy;
+
+	const audioObj = await fetch(url);
+	const blob = await audioObj.blob();
+	const urlObject = URL.createObjectURL(blob);
+	return new Audio(urlObject);
 }

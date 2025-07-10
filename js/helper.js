@@ -4,6 +4,9 @@ function getLimitForGeneration(gen) {
 }
 
 function getFrontalImageUrlById(id) {
+	// return fetchedPokemon[currentGen][id].sprites.other["official-artwork"].front_default;
+	// return fetchedPokemon[currentGen][id].sprites.versions["generation-v"]["black-white"].animated
+	// 	.front_default;
 	return fetchedPokemon[currentGen][id].sprites.front_default;
 }
 
@@ -158,12 +161,21 @@ function closeBigView(event) {
 	element.classList.add("d-none");
 }
 
-function openBigView(id) {
+async function openBigView(id) {
 	const bigViewRef = document.getElementById("bigCardContainer");
 	const bigCardRef = document.getElementById("bigCard");
+	const json = fetchedPokemon[currentGen][id];
 	bigViewRef.classList.remove("d-none");
+	bigCardRef.style = getColorsForTypes(id);
 
-	bigCardRef.innerHTML = renderBigCard(id);
+	bigCardRef.innerHTML = renderBigCard(json);
+	const types = bigCardRef.querySelector(".big-types");
+	for (const typeObj of json.types) {
+		types.innerHTML += renderType(typeObj.type.name);
+	}
+	showLoadingSpinner();
+	await playPokemonAudio(id);
+	hideLoadingSpinner();
 }
 
 function activateFilterInput() {
@@ -189,4 +201,22 @@ async function handleAfterPageChange() {
 	await createPage();
 	saveToSessionStorage("page", currentPage);
 	window.scrollTo(0, 0);
+}
+
+function getColorsForTypes(id) {
+	const json = fetchedPokemon[currentGen][id];
+	const type1 = json.types[0].type.name;
+	const type2 = json.types[1] ? json.types[1].type.name : null;
+	const color1 = type1;
+	const color2 = type2 ? type2 : color1;
+
+	return `--color-type-one: var(--color-${color1});--color-type-two: var(--color-${color2});`;
+}
+
+async function playPokemonAudio(id) {
+	const audio = await getPokemonAudio(id);
+	audio.play();
+	setTimeout(() => {
+		audio.pause();
+	}, 2000);
 }

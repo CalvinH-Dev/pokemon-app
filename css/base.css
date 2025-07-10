@@ -24,6 +24,10 @@ html {
 	--color-steel: hsl(198, 38%, 57%);
 	--color-fairy: hsl(295, 83%, 69%);
 
+	--color-blue-lighter: hsl(190, 100%, 60%);
+	--color-blue: hsl(190, 100%, 50%);
+	--color-blue-darker: hsl(190, 100%, 40%);
+
 	--color-white-lighter: hsl(0, 0%, 100%);
 	--color-white: hsl(0, 0%, 95%);
 	--color-white-darker: hsl(0, 0%, 90%);
@@ -44,6 +48,8 @@ body {
 	font-size: var(--fs-normal);
 	font-family: "Bitter";
 	min-height: 100dvh;
+
+	background-color: var(--color-blue);
 }
 
 header,
@@ -56,7 +62,7 @@ section {
 select,
 input,
 button {
-	border: none;
+	border: unset;
 	background: none;
 	font-family: inherit;
 	font-size: inherit;

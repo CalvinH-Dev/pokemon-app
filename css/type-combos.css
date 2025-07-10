@@ -1,4 +1,4 @@
-.poison {
+/* .poison {
 	background-color: var(--color-poison);
 }
 
@@ -68,9 +68,9 @@
 
 .fairy {
 	background-color: var(--color-fairy);
-}
+} */
 
-.poison.grass {
+/* .poison.grass {
 	background: linear-gradient(
 		to right,
 		var(--color-poison) 0%,
@@ -2823,4 +2823,4 @@
 		var(--color-steel) 50%,
 		var(--color-steel) 100%
 	);
-}
+} */
