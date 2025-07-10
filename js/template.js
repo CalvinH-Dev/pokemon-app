@@ -19,7 +19,7 @@ function renderPokemonInfo(json) {
 
 function renderPokemonContainer(json) {
 	return /*html*/ `
-    <div onclick="testClick(${json.id})" class="pokemon-container ${json.types[0].type.name}${
+    <div onclick="openBigView(${json.id})" class="pokemon-container ${json.types[0].type.name}${
 		json.types[1] ? " " + json.types[1].type.name : ""
 	}" style="order: ${json.id};" id="pokemon-${json.id}"></div>
   `;
@@ -32,6 +32,8 @@ function renderEmptyList() {
 	`;
 }
 
-function testClick(id) {
-	console.log(id);
+function renderBigCard(id) {
+	return /*html*/ `
+		Hello ${id}
+	`;
 }

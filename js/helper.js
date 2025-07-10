@@ -16,7 +16,7 @@ function getGenerationURL(gen) {
 function updatePaginationButtons() {
 	const nextBtn = document.getElementById("nextBtn");
 	const prevBtn = document.getElementById("prevBtn");
-	const maxPage = currentPage == Math.ceil(POKE_GENS[currentGen].count / PAGE_SIZE);
+	const maxPage = currentPage == getMaxPages();
 
 	const prevShouldBeHidden = !(currentPage > 1) || getCurrentView() !== "grid";
 	const nextShouldBeHidden = maxPage || getCurrentView() !== "grid";
@@ -25,8 +25,12 @@ function updatePaginationButtons() {
 	nextBtn.classList.toggle("hidden", nextShouldBeHidden);
 }
 
+function getMaxPages() {
+	return Math.ceil(POKE_GENS[currentGen].count / PAGE_SIZE);
+}
+
 function getPageText(page) {
-	return `Seite ${page}`;
+	return `Seite ${page} von ${getMaxPages()}`;
 }
 
 function updatePagination() {
@@ -111,6 +115,7 @@ function showFilteredView() {
 		setView("empty");
 		showEmptyList();
 	}
+	window.scrollTo(0, 0);
 	updatePagination();
 }
 
@@ -136,4 +141,52 @@ function showLoadingSpinner() {
 function hideLoadingSpinner() {
 	const spinner = document.getElementById("loadingSpinner");
 	spinner.classList.add("d-none");
+}
+
+function saveToSessionStorage(key, value) {
+	sessionStorage.setItem(key, JSON.stringify(value));
+}
+
+function getFromSessionStorage(key) {
+	return JSON.parse(sessionStorage.getItem(key));
+}
+
+function closeBigView(event) {
+	if (event.currentTarget !== event.target) return;
+	const element = event.currentTarget;
+
+	element.classList.add("d-none");
+}
+
+function openBigView(id) {
+	const bigViewRef = document.getElementById("bigCardContainer");
+	const bigCardRef = document.getElementById("bigCard");
+	bigViewRef.classList.remove("d-none");
+
+	bigCardRef.innerHTML = renderBigCard(id);
+}
+
+function activateFilterInput() {
+	const input = document.getElementById("filterInput");
+	input.disabled = false;
+	input.placeholder = "Suche ein Pokemon";
+	input.classList.add("highlight");
+	setTimeout(() => {
+		input.classList.remove("highlight");
+	}, 1500);
+}
+
+function deactivateFilterInput() {
+	const input = document.getElementById("filterInput");
+	input.disabled = true;
+	input.placeholder = "Pokemon werden geladen";
+}
+
+function handleBeforePageChange() {}
+
+async function handleAfterPageChange() {
+	updatePagination();
+	await createPage();
+	saveToSessionStorage("page", currentPage);
+	window.scrollTo(0, 0);
 }

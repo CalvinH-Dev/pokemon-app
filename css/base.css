@@ -24,12 +24,26 @@ html {
 	--color-steel: hsl(198, 38%, 57%);
 	--color-fairy: hsl(295, 83%, 69%);
 
+	--color-white-lighter: hsl(0, 0%, 100%);
+	--color-white: hsl(0, 0%, 95%);
+	--color-white-darker: hsl(0, 0%, 90%);
+
+	--color-black-lighter: hsl(0, 0%, 25%);
+	--color-black: hsl(0, 0%, 15%);
+	--color-black-darker: hsl(0, 0%, 5%);
+
 	--border-radius: 15px;
+	--fs-normal: clamp(1rem, 1.05rem + 0.2vw, 1.125rem);
+	--z-loading-spinner: 100;
+	--z-fixed: 50;
+
+	scroll-behavior: smooth;
 }
 
 body {
+	font-size: var(--fs-normal);
 	font-family: "Bitter";
-	min-height: 100vh;
+	min-height: 100dvh;
 }
 
 header,
@@ -37,11 +51,6 @@ footer,
 section {
 	padding-inline: max(24px, calc(50% - 1600px / 2));
 	width: 100%;
-}
-
-header,
-footer {
-	height: 10vh;
 }
 
 select,
@@ -68,4 +77,28 @@ button:active {
 
 .d-none {
 	display: none;
+}
+
+h1 {
+	font-size: clamp(2.25rem, 2.5rem + 1vw, 3rem);
+	font-weight: bold;
+	color: var(--color-black-darker);
+}
+
+h2 {
+	font-size: clamp(2rem, 2.25rem + 0.7vw, 2.5rem);
+	font-weight: bold;
+	color: var(--color-black-darker);
+}
+
+h3 {
+	font-size: clamp(1.5rem, 1.6rem + 0.4vw, 1.75rem);
+	font-weight: bold;
+}
+
+h4 {
+	font-size: clamp(1.125rem, 1.2rem + 0.2vw, 1.3rem);
+	text-align: center;
+	font-weight: bold;
+	text-wrap: balance;
 }

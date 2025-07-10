@@ -5,8 +5,7 @@ let oldFilterValue = "";
 const filterInput = document.getElementById("filterInput");
 
 async function init() {
-	currentPage = 1;
-	currentGen = 1;
+	loadPageAndGenFromStorage();
 	updatePagination();
 	await createPage();
 	fetchGen();
@@ -16,14 +15,12 @@ init();
 
 async function nextPage() {
 	currentPage++;
-	updatePagination();
-	await createPage();
+	await handleAfterPageChange();
 }
 
 async function prevPage() {
 	currentPage--;
-	updatePagination();
-	await createPage();
+	await handleAfterPageChange();
 }
 
 async function clearFilter() {
@@ -49,8 +46,11 @@ async function changeGen() {
 	const gen = select.value;
 	currentPage = 1;
 	currentGen = gen;
+	updatePagination();
 	await createPage();
 	await fetchGen();
+	saveToSessionStorage("page", currentPage);
+	saveToSessionStorage("gen", currentGen);
 }
 
 async function filterPokemon(event) {
@@ -65,4 +65,12 @@ async function filterPokemon(event) {
 		await showNormalView();
 	}
 	saveOldInputValue();
+}
+
+function loadPageAndGenFromStorage() {
+	currentPage = getFromSessionStorage("page") || 1;
+	currentGen = getFromSessionStorage("gen") || 1;
+
+	const select = document.getElementById("genSelect");
+	select.value = currentGen;
 }

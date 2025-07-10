@@ -16,6 +16,9 @@
 		<title>Pokedex API</title>
 	</head>
 	<body>
+		<div id="bigCardContainer" onclick="closeBigView(event)" class="d-none">
+			<div id="bigCard"></div>
+		</div>
 		<div id="loadingSpinner" class="d-none">
 			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
 				<path
@@ -34,7 +37,7 @@
 		</div>
 		<header>
 			<div>
-				<label for="genSelect">Wähle eine Generation:</label>
+				<!-- <label for="genSelect">Wähle eine Generation:</label> -->
 
 				<select name="gens" id="genSelect" onchange="changeGen()">
 					<option value="1">Generation 1</option>
@@ -48,14 +51,17 @@
 				minlength="3"
 				onfocus="saveOldInputValue()"
 				oninput="filterPokemon(event)"
+				disabled
+				autocomplete="off"
 			/>
 		</header>
 		<main>
 			<section id="mainSection" data-view="grid">
 				<div class="view grid"></div>
+
 				<div class="pagination">
 					<button id="prevBtn" onclick="prevPage()">Vorherige Seite</button>
-					<span id="pageCount">Seite 1</span>
+					<h4 id="pageCount">Seite 1</h4>
 					<button id="nextBtn" onclick="nextPage()">Nächste Seite</button>
 				</div>
 			</section>

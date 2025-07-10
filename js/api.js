@@ -50,6 +50,7 @@ async function renderAllPokemonForPage(page, gen = 1) {
 }
 
 async function fetchGen() {
+	deactivateFilterInput();
 	const promises = [];
 	const end = POKE_GENS[currentGen].lastId;
 	const start = end - POKE_GENS[currentGen].count + 1;
@@ -57,4 +58,5 @@ async function fetchGen() {
 		promises.push(fetchPokemon(id));
 	}
 	await Promise.all(promises);
+	activateFilterInput();
 }
