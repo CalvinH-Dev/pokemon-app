@@ -3,6 +3,7 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="shortcut icon" href="assets/pokemon_favicon.png" type="image/x-icon" />
 		<link rel="stylesheet" href="css/fonts.css" />
 		<link rel="stylesheet" href="css/base.css" />
 		<link rel="stylesheet" href="css/layout.css" />
@@ -16,8 +17,10 @@
 		<title>Pokedex API</title>
 	</head>
 	<body>
-		<div id="bigCardContainer" onclick="closeBigView(event)" class="d-none">
-			<div id="bigCard"></div>
+		<div id="bigCardOverlay" onclick="closeBigView(event)" class="d-none">
+			<div class="big-card-container">
+				<div id="bigCard"></div>
+			</div>
 		</div>
 		<div id="loadingSpinner" class="d-none">
 			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -55,6 +58,10 @@
 					disabled
 					autocomplete="off"
 				/>
+				<label for="sound" class="sound">
+					<span class="checkmark"></span>
+					<input type="checkbox" id="sound" checked />
+				</label>
 			</div>
 		</header>
 		<main>

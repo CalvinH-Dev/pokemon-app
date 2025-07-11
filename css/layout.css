@@ -36,7 +36,7 @@ section {
 		top: 1em;
 		background-color: color-mix(in hsl, white, transparent 80%);
 		backdrop-filter: blur(3px);
-		z-index: var(--z-fixed);
+		z-index: var(--z-header);
 		flex-direction: column;
 		align-items: center;
 	}

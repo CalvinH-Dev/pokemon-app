@@ -39,6 +39,7 @@ html {
 	--border-radius: 15px;
 	--fs-normal: clamp(1rem, 1.05rem + 0.2vw, 1.125rem);
 	--z-loading-spinner: 100;
+	--z-header: 25;
 	--z-fixed: 50;
 
 	scroll-behavior: smooth;
@@ -50,6 +51,10 @@ body {
 	min-height: 100dvh;
 
 	background-color: var(--color-blue);
+}
+
+body:has(#bigCardOverlay:not(.d-none)) {
+	overflow: hidden;
 }
 
 header,
@@ -107,4 +112,10 @@ h4 {
 	text-align: center;
 	font-weight: bold;
 	text-wrap: balance;
+}
+
+abbr {
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }

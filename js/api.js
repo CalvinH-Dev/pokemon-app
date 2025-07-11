@@ -31,7 +31,6 @@ async function fetchAndRender(id) {
 	try {
 		const json = await fetchPokemon(id);
 		createPokemonCard(json);
-		console.log(json);
 	} catch (e) {
 		console.error(e);
 	}

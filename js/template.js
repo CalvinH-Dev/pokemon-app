@@ -1,6 +1,6 @@
 function renderType(type) {
 	return /*html*/ `
-    <img src="${POKE_TYPES[type].image}" alt="${POKE_TYPES[type].name}"/>
+    <abbr title="${type}"><img src="${POKE_TYPES[type].image}" alt="${POKE_TYPES[type].name}"/></abbr>
   `;
 }
 
@@ -34,11 +34,13 @@ function renderEmptyList() {
 
 function renderBigCard(json) {
 	return /*html*/ `
+	<button onclick="prevPokemon(${json.id})" class="big-card-btn prev"></button>
+	<button onclick="prevPokemon(${json.id})" class="big-card-btn next"></button>
 		<h3>${json.german_name}</h3>
 		<div class="card-img-container"><img src="${getFrontalImageUrlById(
 			json.id,
 		)}" alt=""><div class="big-types"></div></div>
-		<div>Stärken</div>
+		<div class="strengths-weaknesses"></div>
 		<div class="stats">${renderStats(json.stats)}</div>
 	`;
 }
@@ -73,6 +75,19 @@ function renderStatsValues(stats) {
 			<span>${stats[4].base_stat}</span>
 			<span>${stats[5].base_stat}</span>
 
+		</div>
+	`;
+}
+
+function renderInteractions(weak, strong) {
+	return /*html*/ `
+		<div class="interaction weak">
+			<span>Weak vs.</span>
+			<div class="interaction-img-container">${weak}</div>
+		</div>
+		<div class="interaction strong">
+			<span>Strong vs.</span>
+			<div class="interaction-img-container">${strong}</div>
 		</div>
 	`;
 }

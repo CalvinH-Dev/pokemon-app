@@ -162,20 +162,52 @@ function closeBigView(event) {
 }
 
 async function openBigView(id) {
-	const bigViewRef = document.getElementById("bigCardContainer");
-	const bigCardRef = document.getElementById("bigCard");
+	showLoadingSpinner();
+	const bigViewRef = document.getElementById("bigCardOverlay");
+
 	const json = fetchedPokemon[currentGen][id];
 	bigViewRef.classList.remove("d-none");
-	bigCardRef.style = getColorsForTypes(id);
+	await createBigCard(json);
+
+	hideLoadingSpinner();
+}
+
+async function nextPokemon(id) {
+	const json = fetchedPokemon[currentGen][id + 1];
+
+	if (!json) {
+		const newId = POKE_GENS[currentGen].lastId - POKE_GENS[currentGen].count;
+		json = fetchedPokemon[currentGen][newId];
+	}
+
+	await createBigCard(json);
+}
+
+async function prevPokemon(id) {
+	let json;
+	json = fetchedPokemon[currentGen][id - 1];
+
+	if (!json) {
+		const newId = POKE_GENS[currentGen].lastId;
+		json = fetchedPokemon[currentGen][newId];
+	}
+	await createBigCard(json);
+}
+
+async function createBigCard(json) {
+	const bigCardRef = document.getElementById("bigCard");
+	bigCardRef.style = getColorsForTypes(json.id);
 
 	bigCardRef.innerHTML = renderBigCard(json);
 	const types = bigCardRef.querySelector(".big-types");
 	for (const typeObj of json.types) {
 		types.innerHTML += renderType(typeObj.type.name);
 	}
-	showLoadingSpinner();
-	await playPokemonAudio(id);
-	hideLoadingSpinner();
+	const container = bigCardRef.querySelector(".strengths-weaknesses");
+	const { weak, strong } = getInteractionsHTML(json);
+	container.innerHTML = renderInteractions(weak, strong);
+
+	await playPokemonAudio(json.id);
 }
 
 function activateFilterInput() {
@@ -205,18 +237,82 @@ async function handleAfterPageChange() {
 
 function getColorsForTypes(id) {
 	const json = fetchedPokemon[currentGen][id];
-	const type1 = json.types[0].type.name;
-	const type2 = json.types[1] ? json.types[1].type.name : null;
-	const color1 = type1;
-	const color2 = type2 ? type2 : color1;
+	const [type1, type2] = getTypesFromJSON(json);
 
-	return `--color-type-one: var(--color-${color1});--color-type-two: var(--color-${color2});`;
+	return `--color-type-one: var(--color-${type1});--color-type-two: var(--color-${type2});`;
 }
 
 async function playPokemonAudio(id) {
+	if (!getSoundEnabled()) return;
 	const audio = await getPokemonAudio(id);
+	audio.volume = 0.05;
 	audio.play();
 	setTimeout(() => {
 		audio.pause();
 	}, 2000);
+}
+
+function getTypesFromJSON(json) {
+	const type1 = json.types[0].type.name;
+	const type2 = json.types[1] ? json.types[1].type.name : type1;
+
+	return [type1, type2];
+}
+
+function getInteractionsHTML(json) {
+	const [type1, type2] = getTypesFromJSON(json);
+
+	const weaknesses = getWeaknesses(type1, type2);
+	const strengths = getStrengths(type1, type2);
+
+	return { weak: weaknesses, strong: strengths };
+}
+
+function getWeaknesses(type1, type2) {
+	const weakList = calcWeaknessesForType(type1, type2);
+	let weaknesses = "";
+	for (const el of weakList) {
+		weaknesses += renderType(el);
+	}
+
+	return weaknesses;
+}
+
+function getStrengths(type1, type2) {
+	const strongList = calcStrengthsForType(type1, type2);
+	let strengths = "";
+	for (const el of strongList) {
+		strengths += renderType(el);
+	}
+
+	return strengths;
+}
+
+function calcWeaknessesForType(type1, type2) {
+	const weak1 = DEFENDING[type1].weak;
+	const weak2 = DEFENDING[type2].weak;
+	const strong1 = DEFENDING[type1].strong;
+	const strong2 = DEFENDING[type2].strong;
+
+	const weakList1 = weak1.difference(strong2);
+	const weakList2 = weak2.difference(strong1);
+
+	return new Set([...weakList1, ...weakList2]);
+}
+
+function calcStrengthsForType(type1, type2) {
+	const weak1 = ATTACKING[type1].weak;
+	const weak2 = ATTACKING[type2].weak;
+	const strong1 = ATTACKING[type1].strong;
+	const strong2 = ATTACKING[type2].strong;
+
+	const strongList1 = strong1.difference(weak2);
+	const strongList2 = strong2.difference(weak1);
+
+	return new Set([...strongList1, ...strongList2]);
+}
+
+function getSoundEnabled() {
+	const soundRef = document.getElementById("sound");
+	return soundRef.checked;
 }
