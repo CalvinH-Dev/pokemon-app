@@ -35,7 +35,8 @@ function renderEmptyList() {
 function renderBigCard(json) {
 	return /*html*/ `
 	<button onclick="prevPokemon(${json.id})" class="big-card-btn prev"></button>
-	<button onclick="prevPokemon(${json.id})" class="big-card-btn next"></button>
+	<button onclick="nextPokemon(${json.id})" class="big-card-btn next"></button>
+	<h4 class="big-pokemon-id">Gen ${currentGen} #${json.id}</h4>
 		<h3>${json.german_name}</h3>
 		<div class="card-img-container"><img src="${getFrontalImageUrlById(
 			json.id,
