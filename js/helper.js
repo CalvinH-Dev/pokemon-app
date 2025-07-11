@@ -173,10 +173,10 @@ async function openBigView(id) {
 }
 
 async function nextPokemon(id) {
-	const json = fetchedPokemon[currentGen][id + 1];
+	let json = fetchedPokemon[currentGen][id + 1];
 
 	if (!json) {
-		const newId = POKE_GENS[currentGen].lastId - POKE_GENS[currentGen].count;
+		const newId = POKE_GENS[currentGen].lastId - POKE_GENS[currentGen].count + 1;
 		json = fetchedPokemon[currentGen][newId];
 	}
 
@@ -184,8 +184,7 @@ async function nextPokemon(id) {
 }
 
 async function prevPokemon(id) {
-	let json;
-	json = fetchedPokemon[currentGen][id - 1];
+	let json = fetchedPokemon[currentGen][id - 1];
 
 	if (!json) {
 		const newId = POKE_GENS[currentGen].lastId;
