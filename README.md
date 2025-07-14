@@ -1,15 +1,14 @@
 # Pokémon Web App
 
-Diese Webanwendung zeigt alle ersten 150 Pokémon als Karten mit ihren Eigenschaften (wie Name, Bild, Typ etc.).
+Diese Webanwendung zeigt alle Pokémon der **Generationen 1 bis 3** (Nationaldex #001–#386) als Karten mit ihren Eigenschaften (wie Name, Bild, Typ etc.).
 
 ## Features
 
-- ✅ Zeigt alle Pokémon von #001 bis #150
+- ✅ Zeigt alle Pokémon von **Generation 1–3** (#001 bis #386)
 - 🃏 Jedes Pokémon wird als übersichtliche Karte dargestellt
 - 🔍 Filterfunktion zum Suchen von Pokémon:
   - Der Filter greift erst nach der Eingabe von mindestens **3 Zeichen**
   - So wird verhindert, dass bei Eingaben wie "a" zu viele Ergebnisse angezeigt werden
-
 
 ## Nutzung
 
@@ -19,5 +18,5 @@ Diese Webanwendung zeigt alle ersten 150 Pokémon als Karten mit ihren Eigenscha
 
 ## Tech Stack
 
-- HTML, CSS, JavaScript (Module)
-- Optional: API oder statische Datenquelle für die ersten 150 Pokémon
+- HTML, CSS, JavaScript (CommonJS)
+- Optional: API oder statische Datenquelle für Pokémon der Generationen 1–3
