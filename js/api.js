@@ -28,20 +28,21 @@ async function getGermanNameById(id) {
 	return json.names[5].name;
 }
 
-async function fetchPokemon(id) {
-	if (fetchedPokemon[currentGen][id]) return fetchedPokemon[currentGen][id];
+async function fetchPokemon(id, gen) {
+	const [pokemon, _] = findPokemonById(id);
+	if (pokemon) return pokemon;
 
 	const url = new URL(id, BASE_URL_GENERAL);
 	const json = await fetchJSONFromUrl(url);
 	json.german_name = await getGermanNameById(json.id);
 
-	fetchedPokemon[currentGen][json.id] = json;
-	return fetchedPokemon[currentGen][json.id];
+	fetchedPokemon[gen][json.id] = json;
+	return fetchedPokemon[gen][json.id];
 }
 
 async function fetchAndRender(id) {
 	try {
-		const json = await fetchPokemon(id);
+		const json = await fetchPokemon(id, currentGen);
 		createPokemonCard(json);
 	} catch (e) {
 		console.error(e);
@@ -61,15 +62,16 @@ async function renderAllPokemonForPage(page, gen) {
 	await Promise.all(promises);
 }
 
-async function fetchGen() {
+async function fetchGen(gen) {
 	deactivateFilterInput();
 
 	const promises = [];
-	const end = POKE_GENS[currentGen].lastId;
-	const start = end - POKE_GENS[currentGen].count + 1;
+	const end = POKE_GENS[gen].lastId;
+
+	const start = end - POKE_GENS[gen].count + 1;
 
 	for (let id = start; id <= end; id++) {
-		promises.push(fetchPokemon(id));
+		promises.push(fetchPokemon(id, gen));
 	}
 
 	await Promise.all(promises);
@@ -77,7 +79,9 @@ async function fetchGen() {
 }
 
 async function getPokemonAudio(id) {
-	const url = fetchedPokemon[currentGen][id].cries.legacy;
+	const url =
+		fetchedPokemon[currentGen][id].cries.legacy || fetchedPokemon[currentGen][id].cries.latest;
+	const audio = await fetchAudioFromUrl(url);
 
-	return await fetchAudioFromUrl(url);
+	return audio;
 }

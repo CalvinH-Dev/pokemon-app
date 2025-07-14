@@ -67,9 +67,14 @@ async function showNormalView() {
 	updatePagination();
 }
 
-function showFilteredView() {
+function showFilteredView(isNumber) {
 	const filterValue = filterInput.value.toLowerCase();
-	getFilteredPokemon(filterValue);
+
+	if (isNumber) {
+		getFilteredPokemonById(filterValue);
+	} else {
+		getFilteredPokemon(filterValue);
+	}
 
 	if (filteredPokemon.length) {
 		setView("filtered");

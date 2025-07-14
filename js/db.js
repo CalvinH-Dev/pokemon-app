@@ -11,7 +11,33 @@ const POKE_GENS = {
 		count: 135,
 		lastId: 386,
 	},
+	4: {
+		count: 107,
+		lastId: 493,
+	},
+	5: {
+		count: 156,
+		lastId: 649,
+	},
+	6: {
+		count: 72,
+		lastId: 721,
+	},
+	7: {
+		count: 88,
+		lastId: 809,
+	},
+	8: {
+		count: 96,
+		lastId: 905,
+	},
+	9: {
+		count: 120,
+		lastId: 1025,
+	},
 };
+
+const MAX_GEN = 9;
 
 const POKE_TYPES = {
 	normal: { image: "assets/icons/normal.png", name: "Normal", color: "" },
@@ -220,4 +246,14 @@ const BASE_URL_SPECIES = "https://pokeapi.co/api/v2/pokemon-species/";
 const BASE_URL_GENERAL = "https://pokeapi.co/api/v2/pokemon/";
 const PAGE_SIZE = 28;
 
-let fetchedPokemon = { 1: {}, 2: {}, 3: {} };
+let fetchedPokemon = {
+	1: {},
+	2: {},
+	3: {},
+	4: {},
+	5: {},
+	6: {},
+	7: {},
+	8: {},
+	9: {},
+};

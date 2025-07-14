@@ -10,7 +10,13 @@ async function init() {
 	loadInitialFromStorage();
 	updatePagination();
 	await createPage();
-	fetchGen();
+	await fetchAllGens();
+}
+
+async function fetchAllGens() {
+	for (let gen = 1; gen <= MAX_GEN; gen++) {
+		await fetchGen(gen);
+	}
 }
 
 async function nextPage() {
@@ -48,24 +54,34 @@ async function changeGen() {
 	currentGen = gen;
 	updatePagination();
 	await createPage();
-	await fetchGen();
+	await fetchGen(currentGen);
 	saveToSessionStorage("page", currentPage);
 	saveToSessionStorage("gen", currentGen);
 }
 
 async function filterPokemon(event) {
 	const filterInput = document.getElementById("filterInput");
+	const value = filterInput.value;
 
 	const needsRerender =
 		(event.inputType === "deleteContentForward" || event.inputType === "deleteContentBackward") &&
-		filterInput.value.length <= 2 &&
+		value.length <= 2 &&
 		oldFilterValue.length > 2;
 
-	if (filterInput.value.length > 2) {
-		showFilteredView();
-	} else if (needsRerender) {
+	const isNumber = isNumeric(value);
+
+	if (isNumber) {
+		showFilteredView(isNumber);
+	} else if (value === "") {
 		await showNormalView();
+	} else {
+		if (value.length > 2) {
+			showFilteredView(isNumber);
+		} else if (needsRerender) {
+			await showNormalView();
+		}
 	}
+
 	saveOldInputValue();
 }
 

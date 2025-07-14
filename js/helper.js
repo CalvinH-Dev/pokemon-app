@@ -4,7 +4,7 @@ function getLimitForGeneration(gen) {
 }
 
 function getFrontalImageUrlById(id) {
-	return fetchedPokemon[currentGen][id].sprites.front_default;
+	return findPokemonById(id)[0].sprites.front_default;
 }
 
 function getGenerationURL(gen) {
@@ -43,19 +43,32 @@ function updatePagination() {
 }
 
 function getFilteredPokemon(value) {
-	const keys = Object.keys(fetchedPokemon[currentGen]);
 	filteredPokemon = [];
+	for (let gen = 1; gen <= MAX_GEN; gen++) {
+		const keys = Object.keys(fetchedPokemon[gen]);
 
-	for (let index = 0; index < keys.length; index++) {
-		const key = keys[index];
-		const pokemon = fetchedPokemon[currentGen][key];
+		for (let index = 0; index < keys.length; index++) {
+			const key = keys[index];
+			const pokemon = fetchedPokemon[gen][key];
 
-		if (pokemon.german_name.toLowerCase().includes(value)) {
-			filteredPokemon.push(fetchedPokemon[currentGen][key]);
+			if (pokemon.german_name.toLowerCase().includes(value)) {
+				filteredPokemon.push(fetchedPokemon[gen][key]);
+			}
 		}
 	}
 
 	return filteredPokemon;
+}
+
+function getFilteredPokemonById(id) {
+	filteredPokemon = [];
+	for (let gen = 1; gen <= MAX_GEN; gen++) {
+		const pokemon = fetchedPokemon[gen][id];
+		if (pokemon) {
+			filteredPokemon.push(fetchedPokemon[gen][id]);
+			return filteredPokemon;
+		}
+	}
 }
 
 function saveOldInputValue() {
@@ -73,7 +86,7 @@ function getFromSessionStorage(key) {
 function activateFilterInput() {
 	const filterInput = document.getElementById("filterInput");
 	filterInput.disabled = false;
-	filterInput.placeholder = "Suche ein Pokemon";
+	filterInput.placeholder = "Name oder ID";
 	filterInput.classList.add("highlight");
 	setTimeout(() => {
 		filterInput.classList.remove("highlight");
@@ -94,7 +107,7 @@ async function handleAfterPageChange() {
 }
 
 function getColorsForTypes(id) {
-	const json = fetchedPokemon[currentGen][id];
+	const json = findPokemonById(id)[0];
 	const [type1, type2] = getTypesFromJSON(json);
 
 	return `--color-type-one: var(--color-${type1});--color-type-two: var(--color-${type2});`;
@@ -159,6 +172,7 @@ function getPrevPokemonFilteredView(id) {
 
 	return json || filteredPokemon[filteredPokemon.length - 1];
 }
+
 function getPrevPokemonNormalView(id) {
 	let json = fetchedPokemon[currentGen][id - 1];
 
@@ -186,4 +200,16 @@ function getNextPokemonNormalView(id) {
 	}
 
 	return json;
+}
+
+function isNumeric(str) {
+	return typeof str === "string" && !isNaN(str) && !isNaN(parseFloat(str));
+}
+
+function findPokemonById(id) {
+	for (let gen = 1; gen <= MAX_GEN; gen++) {
+		if (fetchedPokemon[gen][id]) return [fetchedPokemon[gen][id], gen];
+	}
+
+	return [null, null];
 }
