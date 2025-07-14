@@ -9,6 +9,18 @@ async function fetchJSONFromUrl(url) {
 	}
 }
 
+async function fetchAudioFromUrl(url) {
+	try {
+		const audioObj = await fetch(url);
+		const blob = await audioObj.blob();
+		const urlObject = URL.createObjectURL(blob);
+		return new Audio(urlObject);
+	} catch (e) {
+		console.error(e);
+		return null;
+	}
+}
+
 async function getGermanNameById(id) {
 	const url = new URL(id, BASE_URL_SPECIES);
 	const json = await fetchJSONFromUrl(url);
@@ -18,12 +30,12 @@ async function getGermanNameById(id) {
 
 async function fetchPokemon(id) {
 	if (fetchedPokemon[currentGen][id]) return fetchedPokemon[currentGen][id];
+
 	const url = new URL(id, BASE_URL_GENERAL);
-	const data = await fetch(url);
-	const json = await data.json();
+	const json = await fetchJSONFromUrl(url);
+	json.german_name = await getGermanNameById(json.id);
 
 	fetchedPokemon[currentGen][json.id] = json;
-	fetchedPokemon[currentGen][json.id].german_name = await getGermanNameById(json.id);
 	return fetchedPokemon[currentGen][json.id];
 }
 
@@ -36,14 +48,14 @@ async function fetchAndRender(id) {
 	}
 }
 
-async function renderAllPokemonForPage(page, gen = 1) {
+async function renderAllPokemonForPage(page, gen) {
 	const promises = [];
 	const offset = POKE_GENS[gen].lastId - POKE_GENS[gen].count;
 	const start = (page - 1) * PAGE_SIZE + offset + 1;
-	const end = page * PAGE_SIZE + offset;
+	const end = Math.min(page * PAGE_SIZE + offset, POKE_GENS[gen].lastId);
 
 	if (start > POKE_GENS[gen].lastId) return;
-	for (let id = start; id <= Math.min(end, POKE_GENS[gen].lastId); id++) {
+	for (let id = start; id <= end; id++) {
 		promises.push(fetchAndRender(id));
 	}
 	await Promise.all(promises);
@@ -51,12 +63,15 @@ async function renderAllPokemonForPage(page, gen = 1) {
 
 async function fetchGen() {
 	deactivateFilterInput();
+
 	const promises = [];
 	const end = POKE_GENS[currentGen].lastId;
 	const start = end - POKE_GENS[currentGen].count + 1;
+
 	for (let id = start; id <= end; id++) {
 		promises.push(fetchPokemon(id));
 	}
+
 	await Promise.all(promises);
 	activateFilterInput();
 }
@@ -64,8 +79,5 @@ async function fetchGen() {
 async function getPokemonAudio(id) {
 	const url = fetchedPokemon[currentGen][id].cries.legacy;
 
-	const audioObj = await fetch(url);
-	const blob = await audioObj.blob();
-	const urlObject = URL.createObjectURL(blob);
-	return new Audio(urlObject);
+	return await fetchAudioFromUrl(url);
 }

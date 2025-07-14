@@ -32,10 +32,16 @@ function renderEmptyList() {
 	`;
 }
 
+function renderButtons(id) {
+	return /*html*/ `
+		<button onclick="prevPokemon(${id})" class="big-card-btn prev"></button>
+	<button onclick="nextPokemon(${id})" class="big-card-btn next"></button>
+	`;
+}
+
 function renderBigCard(json) {
 	return /*html*/ `
-	<button onclick="prevPokemon(${json.id})" class="big-card-btn prev"></button>
-	<button onclick="nextPokemon(${json.id})" class="big-card-btn next"></button>
+	${renderButtons(json.id)}
 	<h4 class="big-pokemon-id">Gen ${currentGen} #${json.id}</h4>
 		<h3>${json.german_name}</h3>
 		<div class="card-img-container"><img src="${getFrontalImageUrlById(
@@ -56,12 +62,7 @@ function renderStats(stats) {
 function renderStatsNames(stats) {
 	return /*html*/ `
 		<div class="stat-names">
-			<span>${stats[0].stat.name}</span>
-			<span>${stats[1].stat.name}</span>
-			<span>${stats[2].stat.name}</span>
-			<span>${stats[3].stat.name}</span>
-			<span>${stats[4].stat.name}</span>
-			<span>${stats[5].stat.name}</span>
+			${stats.map((s) => `<span>${s.stat.name}</span>`).join("")}
 		</div>
 	`;
 }
@@ -69,13 +70,7 @@ function renderStatsNames(stats) {
 function renderStatsValues(stats) {
 	return /*html*/ `
 		<div class="stat-values">
-			<span>${stats[0].base_stat}</span>
-			<span>${stats[1].base_stat}</span>
-			<span>${stats[2].base_stat}</span>
-			<span>${stats[3].base_stat}</span>
-			<span>${stats[4].base_stat}</span>
-			<span>${stats[5].base_stat}</span>
-
+			${stats.map((s) => `<span>${s.base_stat}</span>`).join("")}
 		</div>
 	`;
 }

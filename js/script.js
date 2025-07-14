@@ -1,17 +1,16 @@
 let currentPage = 1;
 let currentGen = 1;
+let isAudioOn = true;
 let oldFilterValue = "";
 
-const filterInput = document.getElementById("filterInput");
+init();
 
 async function init() {
-	loadPageAndGenFromStorage();
+	loadInitialFromStorage();
 	updatePagination();
 	await createPage();
 	fetchGen();
 }
-
-init();
 
 async function nextPage() {
 	currentPage++;
@@ -54,6 +53,8 @@ async function changeGen() {
 }
 
 async function filterPokemon(event) {
+	const filterInput = document.getElementById("filterInput");
+
 	const needsRerender =
 		(event.inputType === "deleteContentForward" || event.inputType === "deleteContentBackward") &&
 		filterInput.value.length <= 2 &&
@@ -67,10 +68,40 @@ async function filterPokemon(event) {
 	saveOldInputValue();
 }
 
-function loadPageAndGenFromStorage() {
+function setAudio(event) {
+	const audioInput = event.currentTarget;
+	isAudioOn = audioInput.checked;
+	saveToSessionStorage("audio", isAudioOn);
+}
+
+function loadInitialFromStorage() {
 	currentPage = getFromSessionStorage("page") || 1;
 	currentGen = getFromSessionStorage("gen") || 1;
+	isAudioOn = !!getFromSessionStorage("audio");
 
 	const select = document.getElementById("genSelect");
 	select.value = currentGen;
+	const audioInput = document.getElementById("sound");
+	audioInput.checked = isAudioOn;
+}
+
+async function nextPokemon(id) {
+	let json = fetchedPokemon[currentGen][id + 1];
+
+	if (!json) {
+		const newId = POKE_GENS[currentGen].lastId - POKE_GENS[currentGen].count + 1;
+		json = fetchedPokemon[currentGen][newId];
+	}
+
+	await createBigCard(json);
+}
+
+async function prevPokemon(id) {
+	let json = fetchedPokemon[currentGen][id - 1];
+
+	if (!json) {
+		const newId = POKE_GENS[currentGen].lastId;
+		json = fetchedPokemon[currentGen][newId];
+	}
+	await createBigCard(json);
 }

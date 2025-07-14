@@ -8,8 +8,9 @@
 		<link rel="stylesheet" href="css/base.css" />
 		<link rel="stylesheet" href="css/layout.css" />
 		<link rel="stylesheet" href="css/style.css" />
-		<!-- <link rel="stylesheet" href="css/type-combos.css" /> -->
 		<script src="js/db.js" defer></script>
+		<script src="js/calculations.js" defer></script>
+		<script src="js/views.js" defer></script>
 		<script src="js/helper.js" defer></script>
 		<script src="js/api.js" defer></script>
 		<script src="js/template.js" defer></script>
@@ -41,8 +42,6 @@
 		<header>
 			<h1>Pokedex API</h1>
 			<div class="selectors">
-				<!-- <label for="genSelect">Wähle eine Generation:</label> -->
-
 				<select name="gens" id="genSelect" onchange="changeGen()">
 					<option value="1">Generation 1</option>
 					<option value="2">Generation 2</option>
@@ -60,7 +59,7 @@
 				/>
 				<label for="sound" class="sound">
 					<span class="checkmark"></span>
-					<input type="checkbox" id="sound" checked />
+					<input type="checkbox" id="sound" checked onclick="setAudio(event)" />
 				</label>
 			</div>
 		</header>
