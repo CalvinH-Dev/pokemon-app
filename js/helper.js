@@ -44,7 +44,7 @@ function updatePagination() {
 
 function getFilteredPokemon(value) {
 	const keys = Object.keys(fetchedPokemon[currentGen]);
-	let filteredPokemon = [];
+	filteredPokemon = [];
 
 	for (let index = 0; index < keys.length; index++) {
 		const key = keys[index];
@@ -151,4 +151,39 @@ function getStrengths(type1, type2) {
 function getSoundEnabled() {
 	const soundRef = document.getElementById("sound");
 	return soundRef.checked;
+}
+
+function getPrevPokemonFilteredView(id) {
+	const currentIndex = filteredPokemon.findIndex((pokemonJson) => pokemonJson.id === id);
+	let json = filteredPokemon[currentIndex - 1];
+
+	return json || filteredPokemon[filteredPokemon.length - 1];
+}
+function getPrevPokemonNormalView(id) {
+	let json = fetchedPokemon[currentGen][id - 1];
+
+	if (!json) {
+		const newId = POKE_GENS[currentGen].lastId;
+		json = fetchedPokemon[currentGen][newId];
+	}
+
+	return json;
+}
+
+function getNextPokemonFilteredView(id) {
+	const currentIndex = filteredPokemon.findIndex((pokemonJson) => pokemonJson.id === id);
+	let json = filteredPokemon[currentIndex + 1];
+
+	return json || filteredPokemon[0];
+}
+
+function getNextPokemonNormalView(id) {
+	let json = fetchedPokemon[currentGen][id + 1];
+
+	if (!json) {
+		const newId = POKE_GENS[currentGen].lastId - POKE_GENS[currentGen].count + 1;
+		json = fetchedPokemon[currentGen][newId];
+	}
+
+	return json;
 }

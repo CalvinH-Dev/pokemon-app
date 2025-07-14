@@ -69,7 +69,7 @@ async function showNormalView() {
 
 function showFilteredView() {
 	const filterValue = filterInput.value.toLowerCase();
-	const filteredPokemon = getFilteredPokemon(filterValue);
+	getFilteredPokemon(filterValue);
 
 	if (filteredPokemon.length) {
 		setView("filtered");

@@ -2,6 +2,7 @@ let currentPage = 1;
 let currentGen = 1;
 let isAudioOn = true;
 let oldFilterValue = "";
+let filteredPokemon = [];
 
 init();
 
@@ -86,22 +87,23 @@ function loadInitialFromStorage() {
 }
 
 async function nextPokemon(id) {
-	let json = fetchedPokemon[currentGen][id + 1];
-
-	if (!json) {
-		const newId = POKE_GENS[currentGen].lastId - POKE_GENS[currentGen].count + 1;
-		json = fetchedPokemon[currentGen][newId];
+	let json = {};
+	if (getCurrentView() === "filtered") {
+		json = getNextPokemonFilteredView(id);
+	} else {
+		json = getNextPokemonNormalView(id);
 	}
 
 	await createBigCard(json);
 }
 
 async function prevPokemon(id) {
-	let json = fetchedPokemon[currentGen][id - 1];
-
-	if (!json) {
-		const newId = POKE_GENS[currentGen].lastId;
-		json = fetchedPokemon[currentGen][newId];
+	let json = {};
+	if (getCurrentView() === "filtered") {
+		json = getPrevPokemonFilteredView(id);
+	} else {
+		json = getPrevPokemonNormalView(id);
 	}
+
 	await createBigCard(json);
 }
