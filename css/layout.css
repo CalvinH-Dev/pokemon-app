@@ -1,10 +1,14 @@
 footer {
-	height: 6dvh;
+	min-height: 6dvh;
+
+	padding-block: 1em;
+
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	flex-wrap: wrap;
 	column-gap: 1em;
+	row-gap: 1em;
 
 	background-color: var(--color-blue-darker);
 	border-top: 1px solid var(--color-black-lighter);
