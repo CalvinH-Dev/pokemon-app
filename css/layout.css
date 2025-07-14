@@ -10,6 +10,7 @@ footer {
 }
 
 header {
+	position: relative;
 	height: 14dvh;
 	padding-block: 1vh;
 	display: flex;
@@ -30,10 +31,15 @@ section {
 }
 
 @media (width <= 1000px) {
+	body {
+		display: flex;
+		flex-direction: column;
+	}
+
 	header {
 		position: sticky;
 		height: unset;
-		top: 1em;
+		top: 0;
 		background-color: color-mix(in hsl, white, transparent 80%);
 		backdrop-filter: blur(3px);
 		z-index: var(--z-header);
@@ -41,7 +47,12 @@ section {
 		align-items: center;
 	}
 
+	main {
+		flex: 1;
+	}
+
 	section {
+		min-height: unset;
 		padding-top: 3vh;
 	}
 }

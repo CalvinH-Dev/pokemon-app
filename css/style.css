@@ -506,6 +506,14 @@ button:hover {
 }
 
 @media (width <= 768px) {
+	select {
+		padding: 0.25em 0.25em;
+	}
+
+	input {
+		padding: 0.25em 0.5em;
+	}
+
 	.pagination {
 		padding-inline: 1em;
 		column-gap: 1em;
@@ -522,32 +530,54 @@ button:hover {
 	}
 
 	.big-card-btn {
-		background-color: transparent;
 		--btn-distance: 3.5em;
-		background-size: 200% 100%;
-		background-position: 35% 100%;
+
 		background-repeat: no-repeat;
 		background-origin: border-box;
-		filter: invert();
+		filter: invert(0);
+
+		bottom: calc(-1 * var(--btn-distance));
+		scale: 0.8;
 	}
 
 	.big-card-btn.prev {
-		left: calc(50% - var(--btn-width) / 2);
+		left: 1em;
 		right: revert;
-		top: calc(-1 * var(--btn-distance));
-		bottom: revert;
-		background-image: url("../assets/svg/up.svg");
+		top: revert;
 	}
 
 	.big-card-btn.next {
 		left: calc(50% - var(--btn-width) / 2);
-		right: revert;
-		bottom: calc(-1 * var(--btn-distance));
+		left: revert;
+		right: 1em;
+
 		top: revert;
-		background-image: url("../assets/svg/down.svg");
+	}
+}
+
+@media (height <= 750px) or (width <= 1000px) {
+	header {
+		padding-block: 1em;
 	}
 
-	.big-card-btn:active {
-		filter: invert(0%);
+	header h1 {
+		position: absolute;
+		left: 1em;
+		top: 1em;
+		transform-origin: left;
+		font-size: var(--fs-normal);
+		max-width: min-content;
+	}
+
+	.sound {
+		right: 1em;
+		position: absolute;
+		scale: 0.75;
+	}
+}
+
+@media (height <= 750px) {
+	#bigCard {
+		scale: 0.9;
 	}
 }
