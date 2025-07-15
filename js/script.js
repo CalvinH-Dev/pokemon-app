@@ -53,6 +53,7 @@ async function changeGen() {
 	currentPage = 1;
 	currentGen = gen;
 	updatePagination();
+	await clearFilter();
 	await createPage();
 	await fetchAllGens();
 	saveToSessionStorage("page", currentPage);
