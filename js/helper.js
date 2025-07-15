@@ -4,7 +4,7 @@ function getLimitForGeneration(gen) {
 }
 
 function getFrontalImageUrlById(id) {
-	return getPokemonJSONById(id)[0].sprites.front_default;
+	return getPokemonJSONById(id).sprites.front_default;
 }
 
 function getGenerationURL(gen) {
@@ -107,7 +107,7 @@ async function handleAfterPageChange() {
 }
 
 function getColorsForTypes(id) {
-	const json = getPokemonJSONById(id)[0];
+	const json = getPokemonJSONById(id);
 	const [type1, type2] = getTypesFromJSON(json);
 
 	return `--color-type-one: var(--color-${type1});--color-type-two: var(--color-${type2});`;
@@ -187,7 +187,6 @@ function getPrevPokemonNormalView(id) {
 function getNextPokemonFilteredView(id) {
 	const currentIndex = filteredPokemon.findIndex((pokemonJson) => pokemonJson.id === id);
 	let json = filteredPokemon[currentIndex + 1];
-
 	return json || filteredPokemon[0];
 }
 
@@ -208,8 +207,8 @@ function isNumeric(str) {
 
 function getPokemonJSONById(id) {
 	for (let gen = 1; gen <= MAX_GEN; gen++) {
-		if (fetchedPokemon[gen][id]) return [fetchedPokemon[gen][id], gen];
+		if (fetchedPokemon[gen][id]) return fetchedPokemon[gen][id];
 	}
 
-	return [null, null];
+	return null;
 }

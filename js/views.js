@@ -11,11 +11,11 @@ function createPokemonCard(pokemonJSON) {
 	}
 }
 
-async function createBigCard(json, gen) {
+async function createBigCard(json) {
 	const bigCardRef = document.getElementById("bigCard");
 	bigCardRef.style = getColorsForTypes(json.id);
 
-	bigCardRef.innerHTML = renderBigCard(json, gen);
+	bigCardRef.innerHTML = renderBigCard(json, json.gen);
 	const types = bigCardRef.querySelector(".big-types");
 	for (const typeObj of json.types) {
 		types.innerHTML += renderType(typeObj.type.name);
@@ -31,9 +31,9 @@ async function openBigView(id) {
 	showLoadingSpinner();
 	const bigViewRef = document.getElementById("bigCardOverlay");
 
-	const [json, gen] = getPokemonJSONById(id);
+	const json = getPokemonJSONById(id);
 	bigViewRef.classList.remove("d-none");
-	await createBigCard(json, gen);
+	await createBigCard(json);
 
 	hideLoadingSpinner();
 }
