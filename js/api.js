@@ -29,7 +29,7 @@ async function getGermanNameById(id) {
 }
 
 async function fetchPokemon(id, gen) {
-	const [pokemon, _] = findPokemonById(id);
+	const [pokemon, _] = getPokemonJSONById(id);
 	if (pokemon) return pokemon;
 
 	const url = new URL(id, BASE_URL_GENERAL);
@@ -79,8 +79,7 @@ async function fetchGen(gen) {
 }
 
 async function getPokemonAudio(id) {
-	const url =
-		fetchedPokemon[currentGen][id].cries.legacy || fetchedPokemon[currentGen][id].cries.latest;
+	const url = getPokemonJSONById(id)[0].cries.legacy || getPokemonJSONById(id)[0].cries.latest;
 	const audio = await fetchAudioFromUrl(url);
 
 	return audio;

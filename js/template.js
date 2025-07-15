@@ -39,10 +39,10 @@ function renderButtons(id) {
 	`;
 }
 
-function renderBigCard(json) {
+function renderBigCard(json, gen) {
 	return /*html*/ `
 	${renderButtons(json.id)}
-	<h4 class="big-pokemon-id">Gen ${currentGen} #${json.id}</h4>
+	<h4 class="big-pokemon-id">Gen ${gen} #${json.id}</h4>
 		<h3>${json.german_name}</h3>
 		<div class="card-img-container"><img src="${getFrontalImageUrlById(
 			json.id,

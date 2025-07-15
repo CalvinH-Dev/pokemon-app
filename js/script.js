@@ -54,7 +54,7 @@ async function changeGen() {
 	currentGen = gen;
 	updatePagination();
 	await createPage();
-	await fetchGen(currentGen);
+	await fetchAllGens();
 	saveToSessionStorage("page", currentPage);
 	saveToSessionStorage("gen", currentGen);
 }
