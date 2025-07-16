@@ -74,6 +74,10 @@ button {
 	cursor: pointer;
 }
 
+img {
+	max-width: 100%;
+}
+
 button {
 	transition: scale 75ms;
 }

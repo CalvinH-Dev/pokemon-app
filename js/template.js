@@ -81,6 +81,7 @@ function renderInteractions(weak, strong) {
 			<span>Weak vs.</span>
 			<div class="interaction-img-container">${weak}</div>
 		</div>
+		<div class="divider"></div>
 		<div class="interaction strong">
 			<span>Strong vs.</span>
 			<div class="interaction-img-container">${strong}</div>
