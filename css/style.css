@@ -78,10 +78,10 @@ img {
 	outline: 1px solid var(--color-black-lighter);
 
 	background: linear-gradient(
-		to right,
+		105deg,
 		var(--color-type-one) 0%,
-		var(--color-type-one) 50%,
-		var(--color-type-two) 50%,
+		var(--color-type-one) 49%,
+		var(--color-type-two) 51%,
 		var(--color-type-two) 100%
 	);
 
