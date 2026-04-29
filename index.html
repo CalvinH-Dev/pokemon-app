@@ -13,17 +13,10 @@
 		<link rel="stylesheet" href="css/base.css" />
 		<link rel="stylesheet" href="css/layout.css" />
 		<link rel="stylesheet" href="css/style.css" />
-		<script src="js/db.js" defer></script>
-		<script src="js/calculations.js" defer></script>
-		<script src="js/views.js" defer></script>
-		<script src="js/helper.js" defer></script>
-		<script src="js/api.js" defer></script>
-		<script src="js/template.js" defer></script>
-		<script type="module" src="./js/index.js" defer></script>
 		<title>Pokedex API</title>
 	</head>
 	<body>
-		<div id="bigCardOverlay" onclick="closeBigView(event)" class="d-none">
+		<div id="bigCardOverlay" class="d-none">
 			<div class="big-card-container">
 				<div id="bigCard"></div>
 			</div>
@@ -47,7 +40,7 @@
 		<header>
 			<h1>Pokedex API</h1>
 			<div class="selectors">
-				<select name="gens" id="genSelect" onchange="changeGen()">
+				<select name="gens" id="genSelect">
 					<option value="1">Generation 1</option>
 					<option value="2">Generation 2</option>
 					<option value="3">Generation 3</option>
@@ -63,14 +56,12 @@
 					id="filterInput"
 					type="text"
 					minlength="3"
-					onfocus="saveOldInputValue()"
-					oninput="filterPokemon(event)"
 					disabled
 					autocomplete="off"
 				/>
 				<label for="sound" class="sound">
 					<span class="checkmark"></span>
-					<input type="checkbox" id="sound" checked onclick="setAudio(event)" />
+					<input type="checkbox" id="sound" checked />
 				</label>
 			</div>
 		</header>
@@ -79,9 +70,9 @@
 				<div class="view grid"></div>
 
 				<div class="pagination">
-					<button id="prevBtn" onclick="prevPage()">Vorherige</button>
+					<button id="prevBtn">Vorherige</button>
 					<h4 id="pageCount">Seite 1</h4>
-					<button id="nextBtn" onclick="nextPage()">Nächste</button>
+					<button id="nextBtn">Nächste</button>
 				</div>
 			</section>
 		</main>
@@ -92,5 +83,6 @@
 			>
 			<a href="https://hanisch-dev.de/legal">Impressum</a>
 		</footer>
+		<script type="module" src="./js/index.js"></script>
 	</body>
 </html>

@@ -1,3 +1,22 @@
+import {
+	POKE_GENS,
+	BASE_URL_GENERAL,
+	PAGE_SIZE,
+	MAX_GEN,
+	filteredPokemon,
+	fetchedPokemon,
+	currentPage,
+	currentGen,
+	setOldFilterValue,
+	clearFilteredPokemon,
+} from "./db";
+
+import { getCurrentView } from "./views";
+import { renderType } from "./template";
+import { createPage } from "./index";
+import { getPokemonAudio } from "./api";
+import { calcWeaknessesForType, calcStrengthsForType } from "./calculations";
+
 function getLimitForGeneration(gen) {
 	const lastIdGenBefore = POKE_GENS[gen - 1]?.lastId || 0;
 	return `?limit=${POKE_GENS[gen].lastId}&offset=${lastIdGenBefore}`;
@@ -43,7 +62,7 @@ function updatePagination() {
 }
 
 function getFilteredPokemon(value) {
-	filteredPokemon = [];
+	clearFilteredPokemon();
 	for (let gen = 1; gen <= MAX_GEN; gen++) {
 		const keys = Object.keys(fetchedPokemon[gen]);
 
@@ -61,7 +80,7 @@ function getFilteredPokemon(value) {
 }
 
 function getFilteredPokemonById(id) {
-	filteredPokemon = [];
+	clearFilteredPokemon();
 	for (let gen = 1; gen <= MAX_GEN; gen++) {
 		const pokemon = fetchedPokemon[gen][id];
 		if (pokemon) {
@@ -72,7 +91,8 @@ function getFilteredPokemonById(id) {
 }
 
 function saveOldInputValue() {
-	oldFilterValue = filterInput.value;
+	const filterInput = document.getElementById("filterInput");
+	setOldFilterValue(filterInput.value);
 }
 
 function saveToSessionStorage(key, value) {
@@ -217,3 +237,34 @@ function getPokemonJSONById(id) {
 
 	return null;
 }
+
+export {
+	getLimitForGeneration,
+	getFrontalImageUrlById,
+	getGenerationURL,
+	updatePaginationButtons,
+	getMaxPages,
+	getPageText,
+	updatePagination,
+	getFilteredPokemon,
+	getFilteredPokemonById,
+	saveOldInputValue,
+	saveToSessionStorage,
+	getFromSessionStorage,
+	activateFilterInput,
+	deactivateFilterInput,
+	handleAfterPageChange,
+	getColorsForTypes,
+	playPokemonAudio,
+	getTypesFromJSON,
+	getInteractionsHTML,
+	getWeaknesses,
+	getStrengths,
+	getSoundEnabled,
+	getPrevPokemonFilteredView,
+	getPrevPokemonNormalView,
+	getNextPokemonFilteredView,
+	getNextPokemonNormalView,
+	isNumeric,
+	getPokemonJSONById,
+};

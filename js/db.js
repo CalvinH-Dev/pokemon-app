@@ -266,6 +266,48 @@ let fetchedPokemon = {
 	9: {},
 };
 
+let filteredPokemon = [];
+let currentPage = 1;
+let currentGen = 1;
+let isAudioOn = true;
+let oldFilterValue = "";
+
+function setOldFilterValue(value) {
+	oldFilterValue = value;
+}
+
+function clearFilteredPokemon() {
+	filteredPokemon.length = 0;
+}
+
+function incrementPage() {
+	currentPage++;
+}
+
+function decrementPage() {
+	currentPage--;
+}
+
+function setCurrentPage(page) {
+	currentPage = page;
+}
+
+function incrementGen() {
+	currentGen++;
+}
+
+function decrementGen() {
+	currentGen--;
+}
+
+function setCurrentGen(gen) {
+	currentGen = gen;
+}
+
+function setIsAudioOn(value) {
+	isAudioOn = value;
+}
+
 export {
 	POKE_GENS,
 	MAX_GEN,
@@ -277,4 +319,18 @@ export {
 	BASE_URL_GENERAL,
 	PAGE_SIZE,
 	fetchedPokemon,
+	filteredPokemon,
+	currentPage,
+	currentGen,
+	isAudioOn,
+	oldFilterValue,
+	setOldFilterValue,
+	clearFilteredPokemon,
+	incrementPage,
+	decrementPage,
+	setCurrentPage,
+	incrementGen,
+	decrementGen,
+	setCurrentGen,
+	setIsAudioOn,
 };

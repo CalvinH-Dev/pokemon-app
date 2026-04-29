@@ -1,3 +1,6 @@
+import { POKE_TYPES } from "./db";
+import { getFrontalImageUrlById, getColorsForTypes } from "./helper";
+
 function renderType(type) {
 	return /*html*/ `
     <abbr title="${type}"><img src="${POKE_TYPES[type].image}" alt="${POKE_TYPES[type].name}"/></abbr>
@@ -12,7 +15,7 @@ function renderPokemonInfo(json) {
 		</div>
     <img class="pokemon-img" style="width: 50px; height: 50px;" src="${getFrontalImageUrlById(
 			json.id,
-		)}"/>      
+		)}"/>
     <div class="types-container"></div>
 	`;
 }
@@ -55,7 +58,7 @@ function renderBigCard(json) {
 function renderStats(stats) {
 	return /*html*/ `
 			${renderStatsNames(stats)}
-			${renderStatsValues(stats)}			
+			${renderStatsValues(stats)}
 	`;
 }
 
@@ -88,3 +91,16 @@ function renderInteractions(weak, strong) {
 		</div>
 	`;
 }
+
+export {
+	renderType,
+	renderPokemonInfo,
+	renderPokemonContainer,
+	renderEmptyList,
+	renderButtons,
+	renderBigCard,
+	renderStats,
+	renderStatsNames,
+	renderStatsValues,
+	renderInteractions,
+};

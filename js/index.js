@@ -1,8 +1,38 @@
-let currentPage = 1;
-let currentGen = 1;
-let isAudioOn = true;
-let oldFilterValue = "";
-let filteredPokemon = [];
+import {
+	saveOldInputValue,
+	updatePagination,
+	handleAfterPageChange,
+	saveToSessionStorage,
+	isNumeric,
+	getFromSessionStorage,
+	getNextPokemonFilteredView,
+	getNextPokemonNormalView,
+	getPrevPokemonFilteredView,
+	getPrevPokemonNormalView,
+} from "./helper";
+import {
+	MAX_GEN,
+	incrementPage,
+	decrementPage,
+	currentPage,
+	currentGen,
+	setCurrentPage,
+	setCurrentGen,
+	oldFilterValue,
+	isAudioOn,
+	setIsAudioOn,
+} from "./db";
+import { fetchGen, renderAllPokemonForPage } from "./api";
+import {
+	showNormalView,
+	showLoadingSpinner,
+	hideLoadingSpinner,
+	showFilteredView,
+	getCurrentView,
+	createBigCard,
+} from "./views";
+
+import "./listeners";
 
 init();
 
@@ -19,24 +49,24 @@ async function fetchAllGens() {
 	}
 }
 
-async function nextPage() {
-	currentPage++;
+export async function nextPage() {
+	incrementPage();
 	await handleAfterPageChange();
 }
 
-async function prevPage() {
-	currentPage--;
+export async function prevPage() {
+	decrementPage();
 	await handleAfterPageChange();
 }
 
-async function clearFilter() {
+window.clearFilter = async function () {
 	const input = document.getElementById("filterInput");
 	input.value = "";
 	await showNormalView();
 	saveOldInputValue();
-}
+};
 
-async function createPage() {
+export async function createPage() {
 	showLoadingSpinner();
 	const grid = document.querySelector(".grid");
 	grid.innerHTML = "";
@@ -47,20 +77,20 @@ async function createPage() {
 	}, 250);
 }
 
-async function changeGen() {
+export async function changeGen() {
 	const select = document.getElementById("genSelect");
 	const gen = select.value;
-	currentPage = 1;
-	currentGen = gen;
+	setCurrentPage(1);
+	setCurrentGen(gen);
 	updatePagination();
-	await clearFilter();
+	await window.clearFilter();
 	await createPage();
 	await fetchAllGens();
 	saveToSessionStorage("page", currentPage);
 	saveToSessionStorage("gen", currentGen);
 }
 
-async function filterPokemon(event) {
+export async function filterPokemon(event) {
 	const filterInput = document.getElementById("filterInput");
 	const value = filterInput.value;
 
@@ -87,16 +117,16 @@ async function filterPokemon(event) {
 	saveOldInputValue();
 }
 
-function setAudio(event) {
+export function setAudio(event) {
 	const audioInput = event.currentTarget;
-	isAudioOn = audioInput.checked;
+	setIsAudioOn(audioInput.checked);
 	saveToSessionStorage("audio", isAudioOn);
 }
 
 function loadInitialFromStorage() {
-	currentPage = getFromSessionStorage("page") || 1;
-	currentGen = getFromSessionStorage("gen") || 1;
-	isAudioOn = !!getFromSessionStorage("audio");
+	setCurrentPage(getFromSessionStorage("page") || 1);
+	setCurrentGen(getFromSessionStorage("gen") || 1);
+	setIsAudioOn(!!getFromSessionStorage("audio"));
 
 	const select = document.getElementById("genSelect");
 	select.value = currentGen;
@@ -104,7 +134,7 @@ function loadInitialFromStorage() {
 	audioInput.checked = isAudioOn;
 }
 
-async function nextPokemon(id) {
+window.nextPokemon = async function (id) {
 	let json = {};
 	if (getCurrentView() === "filtered") {
 		json = getNextPokemonFilteredView(id);
@@ -113,9 +143,9 @@ async function nextPokemon(id) {
 	}
 
 	await createBigCard(json);
-}
+};
 
-async function prevPokemon(id) {
+window.prevPokemon = async function (id) {
 	let json = {};
 	if (getCurrentView() === "filtered") {
 		json = getPrevPokemonFilteredView(id);
@@ -124,4 +154,4 @@ async function prevPokemon(id) {
 	}
 
 	await createBigCard(json);
-}
+};

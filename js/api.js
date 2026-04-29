@@ -1,3 +1,18 @@
+import {
+	BASE_URL_SPECIES,
+	BASE_URL_GENERAL,
+	POKE_GENS,
+	PAGE_SIZE,
+	fetchedPokemon,
+	currentGen,
+} from "./db";
+import {
+	getPokemonJSONById,
+	deactivateFilterInput,
+	activateFilterInput,
+} from "./helper";
+import { createPokemonCard } from "./views";
+
 async function fetchJSONFromUrl(url) {
 	try {
 		const data = await fetch(url);
@@ -86,3 +101,14 @@ async function getPokemonAudio(id) {
 
 	return audio;
 }
+
+export {
+	fetchJSONFromUrl,
+	fetchAudioFromUrl,
+	getGermanNameById,
+	fetchPokemon,
+	fetchAndRender,
+	renderAllPokemonForPage,
+	fetchGen,
+	getPokemonAudio,
+};

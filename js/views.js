@@ -1,3 +1,24 @@
+import { filteredPokemon } from "./db";
+import {
+	getColorsForTypes,
+	getInteractionsHTML,
+	playPokemonAudio,
+	getPokemonJSONById,
+	updatePagination,
+	getFilteredPokemonById,
+	getFilteredPokemon,
+} from "./helper";
+import {
+	renderPokemonContainer,
+	renderPokemonInfo,
+	renderType,
+	renderBigCard,
+	renderInteractions,
+	renderEmptyList,
+} from "./template";
+
+import { createPage } from "./index";
+
 function createPokemonCard(pokemonJSON) {
 	const grid = document.querySelector(".grid");
 	grid.innerHTML += renderPokemonContainer(pokemonJSON);
@@ -27,7 +48,7 @@ async function createBigCard(json) {
 	await playPokemonAudio(json.id);
 }
 
-async function openBigView(id) {
+window.openBigView = async function (id) {
 	showLoadingSpinner();
 	const bigViewRef = document.getElementById("bigCardOverlay");
 
@@ -36,7 +57,7 @@ async function openBigView(id) {
 	await createBigCard(json);
 
 	hideLoadingSpinner();
-}
+};
 
 function closeBigView(event) {
 	if (event.currentTarget !== event.target) return;
@@ -68,6 +89,7 @@ async function showNormalView() {
 }
 
 function showFilteredView(isNumber) {
+	const filterInput = document.getElementById("filterInput");
 	const filterValue = filterInput.value.toLowerCase();
 
 	if (isNumber) {
@@ -111,3 +133,17 @@ function hideLoadingSpinner() {
 	const spinner = document.getElementById("loadingSpinner");
 	spinner.classList.add("d-none");
 }
+
+export {
+	createPokemonCard,
+	createBigCard,
+	closeBigView,
+	getCurrentView,
+	setView,
+	showNormalView,
+	showFilteredView,
+	showListOfPokemon,
+	showEmptyList,
+	showLoadingSpinner,
+	hideLoadingSpinner,
+};

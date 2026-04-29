@@ -1,3 +1,5 @@
+import { DEFENDING } from "./db";
+
 function calcWeaknessesForType(type1, type2) {
 	const weak1 = DEFENDING[type1].weak;
 	const weak2 = DEFENDING[type2].weak;
@@ -21,3 +23,5 @@ function calcStrengthsForType(type1, type2) {
 
 	return new Set([...strongList1, ...strongList2]);
 }
+
+export { calcWeaknessesForType, calcStrengthsForType };
