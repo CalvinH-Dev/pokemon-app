@@ -20,8 +20,8 @@ function renderPokemonInfo(json) {
 function renderPokemonContainer(json) {
 	return /*html*/ `
     <div onclick="openBigView(${json.id})" class="pokemon-container" style="order: ${
-		json.id
-	};${getColorsForTypes(json.id)}" id="pokemon-${json.id}"></div>
+			json.id
+		};${getColorsForTypes(json.id)}" id="pokemon-${json.id}"></div>
   `;
 }
 

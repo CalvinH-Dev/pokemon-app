@@ -65,7 +65,8 @@ async function filterPokemon(event) {
 	const value = filterInput.value;
 
 	const needsRerender =
-		(event.inputType === "deleteContentForward" || event.inputType === "deleteContentBackward") &&
+		(event.inputType === "deleteContentForward" ||
+			event.inputType === "deleteContentBackward") &&
 		value.length <= 2 &&
 		oldFilterValue.length > 2;
 

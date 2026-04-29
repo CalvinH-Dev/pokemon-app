@@ -80,7 +80,8 @@ async function fetchGen(gen) {
 }
 
 async function getPokemonAudio(id) {
-	const url = getPokemonJSONById(id).cries.legacy || getPokemonJSONById(id).cries.latest;
+	const url =
+		getPokemonJSONById(id).cries.legacy || getPokemonJSONById(id).cries.latest;
 	const audio = await fetchAudioFromUrl(url);
 
 	return audio;

@@ -167,7 +167,9 @@ function getSoundEnabled() {
 }
 
 function getPrevPokemonFilteredView(id) {
-	const currentIndex = filteredPokemon.findIndex((pokemonJson) => pokemonJson.id === id);
+	const currentIndex = filteredPokemon.findIndex(
+		(pokemonJson) => pokemonJson.id === id,
+	);
 	let json = filteredPokemon[currentIndex - 1];
 
 	return json || filteredPokemon[filteredPokemon.length - 1];
@@ -185,7 +187,9 @@ function getPrevPokemonNormalView(id) {
 }
 
 function getNextPokemonFilteredView(id) {
-	const currentIndex = filteredPokemon.findIndex((pokemonJson) => pokemonJson.id === id);
+	const currentIndex = filteredPokemon.findIndex(
+		(pokemonJson) => pokemonJson.id === id,
+	);
 	let json = filteredPokemon[currentIndex + 1];
 	return json || filteredPokemon[0];
 }
@@ -194,7 +198,8 @@ function getNextPokemonNormalView(id) {
 	let json = fetchedPokemon[currentGen][id + 1];
 
 	if (!json) {
-		const newId = POKE_GENS[currentGen].lastId - POKE_GENS[currentGen].count + 1;
+		const newId =
+			POKE_GENS[currentGen].lastId - POKE_GENS[currentGen].count + 1;
 		json = fetchedPokemon[currentGen][newId];
 	}
 

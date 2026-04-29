@@ -10,44 +10,74 @@ html {
 	--l-shift: 10%;
 
 	--color-poison: hsl(
-		273 calc(60% + var(--s-shift)) calc(53% + var(--l-shift)) / var(--color-alpha)
+		273 calc(60% + var(--s-shift)) calc(53% + var(--l-shift)) /
+			var(--color-alpha)
 	);
-	--color-grass: hsl(96 calc(78% + var(--s-shift)) calc(36% + var(--l-shift)) / var(--color-alpha));
-	--color-fire: hsl(1 calc(78% + var(--s-shift)) calc(49% + var(--l-shift)) / var(--color-alpha));
+	--color-grass: hsl(
+		96 calc(78% + var(--s-shift)) calc(36% + var(--l-shift)) /
+			var(--color-alpha)
+	);
+	--color-fire: hsl(
+		1 calc(78% + var(--s-shift)) calc(49% + var(--l-shift)) / var(--color-alpha)
+	);
 	--color-water: hsl(
-		217 calc(88% + var(--s-shift)) calc(59% + var(--l-shift)) / var(--color-alpha)
+		217 calc(88% + var(--s-shift)) calc(59% + var(--l-shift)) /
+			var(--color-alpha)
 	);
 	--color-flying: hsl(
-		212 calc(80% + var(--s-shift)) calc(75% + var(--l-shift)) / var(--color-alpha)
+		212 calc(80% + var(--s-shift)) calc(75% + var(--l-shift)) /
+			var(--color-alpha)
 	);
-	--color-bug: hsl(66 calc(100% + var(--s-shift)) calc(32% + var(--l-shift)) / var(--color-alpha));
-	--color-normal: hsl(90 calc(1% + var(--s-shift)) calc(63% + var(--l-shift)) / var(--color-alpha));
+	--color-bug: hsl(
+		66 calc(100% + var(--s-shift)) calc(32% + var(--l-shift)) /
+			var(--color-alpha)
+	);
+	--color-normal: hsl(
+		90 calc(1% + var(--s-shift)) calc(63% + var(--l-shift)) / var(--color-alpha)
+	);
 	--color-electric: hsl(
-		47 calc(100% + var(--s-shift)) calc(48% + var(--l-shift)) / var(--color-alpha)
+		47 calc(100% + var(--s-shift)) calc(48% + var(--l-shift)) /
+			var(--color-alpha)
 	);
-	--color-ice: hsl(194 calc(100% + var(--s-shift)) calc(68% + var(--l-shift)) / var(--color-alpha));
+	--color-ice: hsl(
+		194 calc(100% + var(--s-shift)) calc(68% + var(--l-shift)) /
+			var(--color-alpha)
+	);
 	--color-fighting: hsl(
-		31 calc(100% + var(--s-shift)) calc(48% + var(--l-shift)) / var(--color-alpha)
+		31 calc(100% + var(--s-shift)) calc(48% + var(--l-shift)) /
+			var(--color-alpha)
 	);
 	--color-ground: hsl(
-		30 calc(76% + var(--s-shift)) calc(31% + var(--l-shift)) / var(--color-alpha)
+		30 calc(76% + var(--s-shift)) calc(31% + var(--l-shift)) /
+			var(--color-alpha)
 	);
 	--color-psychic: hsl(
-		339 calc(77% + var(--s-shift)) calc(57% + var(--l-shift)) / var(--color-alpha)
+		339 calc(77% + var(--s-shift)) calc(57% + var(--l-shift)) /
+			var(--color-alpha)
 	);
-	--color-rock: hsl(54 calc(23% + var(--s-shift)) calc(59% + var(--l-shift)) / var(--color-alpha));
+	--color-rock: hsl(
+		54 calc(23% + var(--s-shift)) calc(59% + var(--l-shift)) /
+			var(--color-alpha)
+	);
 	--color-ghost: hsl(
-		294 calc(29% + var(--s-shift)) calc(35% + var(--l-shift)) / var(--color-alpha)
+		294 calc(29% + var(--s-shift)) calc(35% + var(--l-shift)) /
+			var(--color-alpha)
 	);
 	--color-dragon: hsl(
-		235 calc(74% + var(--s-shift)) calc(61% + var(--l-shift)) / var(--color-alpha)
+		235 calc(74% + var(--s-shift)) calc(61% + var(--l-shift)) /
+			var(--color-alpha)
 	);
-	--color-dark: hsl(10 calc(13% + var(--s-shift)) calc(27% + var(--l-shift)) / var(--color-alpha));
+	--color-dark: hsl(
+		10 calc(13% + var(--s-shift)) calc(27% + var(--l-shift)) /
+			var(--color-alpha)
+	);
 	--color-steel: hsl(
-		198 calc(38% + var(--s-shift)) calc(57% + var(--l-shift)) / var(--color-alpha)
+		198 calc(38% + var(--s-shift)) calc(57% + var(--l-shift)) /
+			var(--color-alpha)
 	);
 	--color-fairy: hsl(
-		295 calc(83% + var(--s-shift)) calc(69% + var(--l-shift)) / var(--color-alpha)
+		295 calc(83% + var(--s-shift)) calc(69% + var(--l-shift)) /
+			var(--color-alpha)
 	);
 
 	--color-blue-lighter: hsl(190, 100%, 60%);

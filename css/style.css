@@ -36,7 +36,10 @@ img {
 
 .grid {
 	display: grid;
-	grid-template-columns: repeat(auto-fill, minmax(max(270px, 100% / 4 - 2em), 1fr));
+	grid-template-columns: repeat(
+		auto-fill,
+		minmax(max(270px, 100% / 4 - 2em), 1fr)
+	);
 	grid-auto-rows: 60px;
 	column-gap: 2em;
 	row-gap: 2em;
@@ -45,7 +48,9 @@ img {
 	background-color: var(--color-blue-lighter);
 
 	border-radius: var(--border-radius);
-	box-shadow: var(--color-blue-darker) 1px 1px 5px 0px, var(--color-blue-darker) -1px -1px 5px 0px,
+	box-shadow:
+		var(--color-blue-darker) 1px 1px 5px 0px,
+		var(--color-blue-darker) -1px -1px 5px 0px,
 		hsl(from var(--color-blue-lighter) h s 60%) 1px 1px 5px 0px inset,
 		hsl(from var(--color-blue-lighter) h s 60%) -1px -1px 5px 0px inset;
 }
@@ -167,7 +172,9 @@ input {
 	padding: 0.5em 1em;
 	border-radius: none;
 	box-shadow: 0px 0px 5px var(--color-black-darker);
-	transition: box-shadow 1s, scale 225ms;
+	transition:
+		box-shadow 1s,
+		scale 225ms;
 	border-radius: 20px;
 
 	background: url(../assets/svg/search.svg) no-repeat 1px 1px;
@@ -221,7 +228,10 @@ input {
 	background-color: var(--color-white-darker);
 	box-shadow: 0px 0px 10px var(--color-black-lighter);
 
-	transition: scale 225ms, box-shadow 225ms, background-color 225ms;
+	transition:
+		scale 225ms,
+		box-shadow 225ms,
+		background-color 225ms;
 }
 
 .types-container {
@@ -269,7 +279,9 @@ input {
 	background-color: transparent;
 	backdrop-filter: blur(2px);
 	z-index: var(--z-loading-spinner);
-	transition: visibility 225ms, opacity 225ms;
+	transition:
+		visibility 225ms,
+		opacity 225ms;
 }
 
 #loadingSpinner svg {

@@ -107,7 +107,15 @@ const ATTACKING = {
 	},
 	grass: {
 		strong: new Set(["water", "ground", "rock"]),
-		weak: new Set(["fire", "grass", "poison", "flying", "bug", "dragon", "steel"]),
+		weak: new Set([
+			"fire",
+			"grass",
+			"poison",
+			"flying",
+			"bug",
+			"dragon",
+			"steel",
+		]),
 	},
 	electric: {
 		strong: new Set(["water", "flying"]),
@@ -256,4 +264,17 @@ let fetchedPokemon = {
 	7: {},
 	8: {},
 	9: {},
+};
+
+export {
+	POKE_GENS,
+	MAX_GEN,
+	POKE_TYPES,
+	ATTACKING,
+	DEFENDING,
+	TYPES,
+	BASE_URL_SPECIES,
+	BASE_URL_GENERAL,
+	PAGE_SIZE,
+	fetchedPokemon,
 };

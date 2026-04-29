@@ -1,0 +1,31 @@
+{
+	"name": "pokemon-app",
+	"version": "1.0.0",
+	"description": "Diese Webanwendung zeigt alle Pokémon der **Generationen 1 bis 9** (Nationaldex #001–#1025) als Karten mit ihren Eigenschaften (Name, Bild, Typ, etc.).",
+	"homepage": "https://github.com/CalvinH-Dev/pokemon-app#readme",
+	"bugs": {
+		"url": "https://github.com/CalvinH-Dev/pokemon-app/issues"
+	},
+	"license": "ISC",
+	"author": "",
+	"repository": {
+		"type": "git",
+		"url": "git+https://calvinh-dev@github.com/CalvinH-Dev/pokemon-app.git"
+	},
+	"type": "module",
+	"main": "index.js",
+	"scripts": {
+		"dev": "vite",
+		"build": "vite build",
+		"preview": "vite preview",
+		"fmt": "oxfmt",
+		"fmt:check": "oxfmt --check",
+		"lint": "oxlint",
+		"lint:fix": "oxlint --fix"
+	},
+	"devDependencies": {
+		"oxfmt": "^0.47.0",
+		"oxlint": "^1.62.0",
+		"vite": "^8.0.10"
+	}
+}
